@@ -17,7 +17,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="flex items-center gap-3">
           <AfariLogo size={38} variant="dark" />
           <div className="leading-none">
-            <p className="text-[17px] font-bold tracking-tight text-white">afari</p>
+            <p className="text-[17px] font-bold tracking-tight text-white">AFARI</p>
             <p className="text-[11px] text-white/40 mt-0.5 tracking-wide">Work Smart. Travel Easy.</p>
           </div>
         </div>
@@ -26,10 +26,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="space-y-9">
           <div>
             <h1 className="text-[2rem] font-bold leading-tight text-white">
-              The smarter way to manage corporate travel and expenses.
+              The coordination layer for corporate movement in Africa.
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-white/50">
-              One platform for booking, approvals, and finance analytics — built for modern teams.
+              From Lagos to Nairobi. Booking, approvals, and spend analytics — all in one place.
             </p>
           </div>
 

@@ -289,9 +289,9 @@ export default function TravelPage() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#0a0a0a]">Book Travel</h1>
+        <h1 className="text-2xl font-bold text-[#0a0a0a]">Plan a Trip</h1>
         <p className="text-[#737373] text-sm mt-0.5">
-          Search flights, hotels, and car rentals — policy compliance checked in real-time
+          Search and book flights, hotels, and cars across Africa and beyond
         </p>
       </div>
 
@@ -318,7 +318,7 @@ export default function TravelPage() {
               <div>
                 <label className="label">From</label>
                 <Input
-                  placeholder="SFO, New York..."
+                  placeholder="LOS, Lagos..."
                   value={flightForm.origin}
                   onChange={(e) => setFlightForm((f) => ({ ...f, origin: e.target.value }))}
                   required
@@ -327,7 +327,7 @@ export default function TravelPage() {
               <div>
                 <label className="label">To</label>
                 <Input
-                  placeholder="JFK, Chicago..."
+                  placeholder="NBO, Nairobi..."
                   value={flightForm.destination}
                   onChange={(e) => setFlightForm((f) => ({ ...f, destination: e.target.value }))}
                   required
@@ -413,7 +413,7 @@ export default function TravelPage() {
               <div className="col-span-2 lg:col-span-1">
                 <label className="label">City</label>
                 <Input
-                  placeholder="San Francisco, NYC..."
+                  placeholder="Nairobi, Lagos, Accra..."
                   value={hotelForm.city}
                   onChange={(e) => setHotelForm((f) => ({ ...f, city: e.target.value }))}
                   required
@@ -489,7 +489,7 @@ export default function TravelPage() {
               <div>
                 <label className="label">Pick-up Location</label>
                 <Input
-                  placeholder="Airport, city..."
+                  placeholder="Nairobi, Lagos..."
                   value={carForm.location}
                   onChange={(e) => setCarForm((f) => ({ ...f, location: e.target.value }))}
                   required

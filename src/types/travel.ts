@@ -61,6 +61,7 @@ export interface FlightSearchResult {
   seatsLeft?: number;
   isRecommended?: boolean;
   aiReason?: string;
+  recommendationType?: "BEST_BALANCE" | "FASTEST" | "LOWEST_COST" | null;
 }
 
 export interface HotelSearchResult {

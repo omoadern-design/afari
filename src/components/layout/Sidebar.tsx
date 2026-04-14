@@ -28,7 +28,7 @@ export function Sidebar({ role, pendingApprovals }: SidebarProps) {
 
   const navItems: NavItem[] = [
     { href: "/dashboard", label: "Dashboard",  icon: <LayoutDashboard className="h-4 w-4" /> },
-    { href: "/travel",    label: "Book Travel", icon: <Plane className="h-4 w-4" /> },
+    { href: "/travel",    label: "Plan a Trip", icon: <Plane className="h-4 w-4" /> },
     { href: "/expenses",  label: "Expenses",    icon: <Receipt className="h-4 w-4" /> },
     {
       href: "/approvals", label: "Approvals",   icon: <CheckSquare className="h-4 w-4" />,
@@ -47,7 +47,7 @@ export function Sidebar({ role, pendingApprovals }: SidebarProps) {
       <div className="flex h-14 items-center gap-2.5 border-b border-white/[0.07] px-5">
         <AfariLogo size={30} variant="dark" />
         <div className="leading-none">
-          <p className="text-[14px] font-bold tracking-tight text-white">afari</p>
+          <p className="text-[14px] font-bold tracking-tight text-white">AFARI</p>
           <p className="text-[10px] text-white/30 mt-0.5">Work Smart. Travel Easy.</p>
         </div>
       </div>

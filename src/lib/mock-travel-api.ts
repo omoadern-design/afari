@@ -12,7 +12,7 @@ function seededRand(seed: string, index: number): number {
   return Math.abs((h ^ (h >>> 16)) >>> 0) / 0xffffffff;
 }
 
-const AIRLINES = ["United", "Delta", "American", "Southwest", "JetBlue", "Alaska", "Spirit", "Frontier"];
+const AIRLINES = ["Kenya Airways", "Ethiopian Airlines", "RwandAir", "South African Airways", "EgyptAir", "Arik Air", "Air Maroc", "Emirates"];
 const HOTEL_BRANDS = ["Marriott", "Hilton", "Hyatt", "IHG", "Westin", "Sheraton", "Hampton Inn", "Courtyard", "Aloft", "W Hotels"];
 const CAR_COMPANIES = ["Hertz", "Enterprise", "Avis", "Budget", "National", "Dollar", "Thrifty", "Alamo"];
 const CAR_CLASSES = ["ECONOMY", "COMPACT", "MIDSIZE", "FULLSIZE", "SUV", "LUXURY"];
@@ -58,11 +58,11 @@ export function searchFlights(params: FlightSearchParams): FlightSearchResult[] 
   const results: FlightSearchResult[] = [];
 
   const flights = [
-    { airline: AIRLINES[Math.floor(seededRand(seed, 1) * AIRLINES.length)], stops: 0, durationMult: 1.0 },
-    { airline: AIRLINES[Math.floor(seededRand(seed, 2) * AIRLINES.length)], stops: 0, durationMult: 1.1 },
-    { airline: AIRLINES[Math.floor(seededRand(seed, 3) * AIRLINES.length)], stops: 1, durationMult: 1.5 },
-    { airline: AIRLINES[Math.floor(seededRand(seed, 4) * AIRLINES.length)], stops: 1, durationMult: 1.8 },
-    { airline: AIRLINES[Math.floor(seededRand(seed, 5) * AIRLINES.length)], stops: 2, durationMult: 2.2 },
+    { airline: AIRLINES[Math.floor(seededRand(seed, 1) * AIRLINES.length)], stops: 0, durationMult: 1.0,  priceMult: 1.0,  label: "BEST_BALANCE" as const },
+    { airline: AIRLINES[Math.floor(seededRand(seed, 2) * AIRLINES.length)], stops: 0, durationMult: 0.85, priceMult: 1.15, label: "FASTEST"      as const },
+    { airline: AIRLINES[Math.floor(seededRand(seed, 3) * AIRLINES.length)], stops: 1, durationMult: 1.5,  priceMult: 0.78, label: "LOWEST_COST"  as const },
+    { airline: AIRLINES[Math.floor(seededRand(seed, 4) * AIRLINES.length)], stops: 1, durationMult: 1.8,  priceMult: 0.82, label: null },
+    { airline: AIRLINES[Math.floor(seededRand(seed, 5) * AIRLINES.length)], stops: 2, durationMult: 2.2,  priceMult: 0.70, label: null },
   ];
 
   const cabinClasses: Array<"ECONOMY" | "PREMIUM_ECONOMY" | "BUSINESS" | "FIRST"> = [
@@ -73,7 +73,7 @@ export function searchFlights(params: FlightSearchParams): FlightSearchResult[] 
   flights.forEach((flight, i) => {
     const cabin = cabinClasses[i];
     const mult = cabinMultipliers[i];
-    const price = Math.round(basePrice * urgencyMultiplier * mult * flight.durationMult);
+    const price = Math.round(basePrice * urgencyMultiplier * mult * flight.durationMult * flight.priceMult);
     const duration = Math.round((120 + seededRand(seed, i + 10) * 300) * flight.durationMult);
     const depHour = 6 + Math.floor(seededRand(seed, i + 20) * 14);
     const depMin = Math.floor(seededRand(seed, i + 30) * 4) * 15;
@@ -97,8 +97,12 @@ export function searchFlights(params: FlightSearchParams): FlightSearchResult[] 
       policyResult: "IN_POLICY", // will be set by policy engine in API route
       policyViolations: [],
       seatsLeft: Math.floor(1 + seededRand(seed, i + 50) * 9),
-      isRecommended: i === 0,
-      aiReason: i === 0 ? "Best value non-stop flight with strong on-time record" : undefined,
+      recommendationType: flight.label,
+      isRecommended: flight.label === "BEST_BALANCE",
+      aiReason: flight.label === "BEST_BALANCE" ? "Non-stop flight with strong on-time record and best overall value"
+              : flight.label === "FASTEST" ? "Fastest option — arrives earliest with shortest travel time"
+              : flight.label === "LOWEST_COST" ? "Lowest fare option — one stop but significant savings"
+              : undefined,
     });
   });
 

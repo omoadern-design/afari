@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Afari — Corporate Travel & Expense Management",
+  title: "AFARI — Corporate Travel & Expense Management",
   description:
     "AI-powered corporate travel booking and expense management platform with policy enforcement and finance analytics.",
 };

@@ -21,14 +21,20 @@ const CABIN_LABELS: Record<string, string> = {
 };
 
 const AIRLINE_COLORS: Record<string, string> = {
-  United: "bg-[#f0f0f0]",
-  Delta: "bg-red-600",
-  American: "bg-slate-700",
-  Southwest: "bg-yellow-500",
-  JetBlue: "bg-[#f0f0f0]",
-  Alaska: "bg-teal-600",
-  Spirit: "bg-yellow-400",
-  Frontier: "bg-green-500",
+  "Kenya Airways": "bg-red-700",
+  "Ethiopian Airlines": "bg-green-700",
+  "RwandAir": "bg-blue-700",
+  "South African Airways": "bg-[#0a0a0a]",
+  "EgyptAir": "bg-blue-900",
+  "Arik Air": "bg-orange-600",
+  "Air Maroc": "bg-red-600",
+  "Emirates": "bg-red-800",
+};
+
+const CURATED_LABELS: Record<string, { label: string; icon: React.ReactNode; className: string }> = {
+  BEST_BALANCE: { label: "Best Balance", icon: <Sparkles className="h-3 w-3" />, className: "bg-[#0a0a0a] text-white" },
+  FASTEST:      { label: "Fastest",      icon: <span className="text-xs">⚡</span>,  className: "bg-amber-500 text-white" },
+  LOWEST_COST:  { label: "Lowest Cost",  icon: <span className="text-xs">$</span>,    className: "bg-emerald-600 text-white" },
 };
 
 export function FlightCard({ flight, onBook }: FlightCardProps) {
@@ -48,10 +54,10 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
         isBlocked && "opacity-75"
       )}
     >
-      {flight.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#0a0a0a] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
-          <Sparkles className="h-3 w-3" />
-          Recommended
+      {flight.recommendationType && CURATED_LABELS[flight.recommendationType] && (
+        <div className={`absolute -top-2.5 left-4 flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium shadow-sm ${CURATED_LABELS[flight.recommendationType].className}`}>
+          {CURATED_LABELS[flight.recommendationType].icon}
+          {CURATED_LABELS[flight.recommendationType].label}
         </div>
       )}
 

@@ -56,6 +56,37 @@ export default async function DashboardPage() {
         </p>
       </div>
 
+      {/* Movement pulse — admin/manager view */}
+      {isManagerOrAbove && (
+        <div className="mb-5 rounded-xl border border-[#e5e5e5] bg-[#0a0a0a] px-5 py-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-white/40">
+            Movement Pulse · Today
+          </p>
+          <div className="mt-3 flex flex-wrap gap-8">
+            <div>
+              <p className="text-2xl font-bold text-white tabular-nums">{totalBookings}</p>
+              <p className="text-xs text-white/40">trips this month</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white tabular-nums">{pendingApprovals}</p>
+              <p className="text-xs text-white/40">awaiting approval</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white tabular-nums">{pendingExpenses}</p>
+              <p className="text-xs text-white/40">expenses pending</p>
+            </div>
+          </div>
+          {pendingApprovals > 0 && (
+            <Link
+              href="/approvals"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20 transition-colors"
+            >
+              Review {pendingApprovals} pending {pendingApprovals === 1 ? "request" : "requests"} <ArrowRight className="h-3 w-3" />
+            </Link>
+          )}
+        </div>
+      )}
+
       {/* KPI cards */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 mb-6">
         <StatCard title="Spend this month" value={formatCurrency(totalExpenses._sum.amount ?? 0)}
@@ -100,7 +131,7 @@ export default async function DashboardPage() {
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-[#a3a3a3]">Quick actions</p>
         <div className="flex flex-wrap gap-2">
           {[
-            { href: "/travel",    icon: <Plane className="h-4 w-4" />,       label: "Book Travel" },
+            { href: "/travel",    icon: <Plane className="h-4 w-4" />,       label: "Plan a Trip" },
             { href: "/expenses/new", icon: <Plus className="h-4 w-4" />,     label: "Submit Expense" },
             ...(isManagerOrAbove
               ? [{ href: "/approvals", icon: <CheckSquare className="h-4 w-4" />, label: "Review Approvals" }]

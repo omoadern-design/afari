@@ -33,7 +33,7 @@ export function AfariLogo({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="Afari"
+      aria-label="AFARI"
     >
       {/* Background */}
       {showBg && <rect width="100" height="100" rx="16" fill={bg} />}
@@ -98,7 +98,7 @@ export function AfariWordmark({
             letterSpacing: "-0.02em",
           }}
         >
-          afari
+          AFARI
         </span>
         {showTagline && (
           <span
