@@ -37,7 +37,7 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
     flight.policyViolations.length > 0 &&
     (flight.policyResult === "REQUIRES_APPROVAL" || flight.policyResult === "OUT_OF_POLICY" || flight.policyResult === "BLOCKED");
 
-  const airlineColor = AIRLINE_COLORS[flight.airline] ?? "bg-[#f7f7f7]0";
+  const airlineColor = AIRLINE_COLORS[flight.airline] ?? "bg-[#f7f7f7]";
   const initials = flight.airline.substring(0, 2).toUpperCase();
 
   return (
@@ -49,7 +49,7 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
       )}
     >
       {flight.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#f0f0f0] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#0a0a0a] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
           <Sparkles className="h-3 w-3" />
           Recommended
         </div>

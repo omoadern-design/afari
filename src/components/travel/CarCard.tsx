@@ -53,7 +53,7 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
       )}
     >
       {car.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#f0f0f0] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#0a0a0a] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
           <Sparkles className="h-3 w-3" />
           Recommended
         </div>

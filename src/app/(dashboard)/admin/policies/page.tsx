@@ -27,7 +27,7 @@ export default async function PoliciesPage() {
             Define rules that govern employee travel and expense behavior
           </p>
         </div>
-        <button className="flex items-center gap-2 rounded-lg bg-[#f0f0f0] px-4 py-2 text-sm font-medium text-white hover:bg-[#f0f0f0]">
+        <button className="flex items-center gap-2 rounded-lg bg-[#0a0a0a] px-4 py-2 text-sm font-medium text-white hover:bg-[#262626]">
           <Plus className="h-4 w-4" />
           New Policy
         </button>

@@ -74,7 +74,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
         </div>
         <Link
           href="/expenses/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#f0f0f0] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#f0f0f0] transition-colors"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#0a0a0a] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#262626] transition-colors"
         >
           <Plus className="h-4 w-4" />
           New Expense
@@ -163,7 +163,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
           {filter === "ALL" && (
             <Link
               href="/expenses/new"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#f0f0f0] px-4 py-2 text-sm font-medium text-white hover:bg-[#f0f0f0] transition-colors"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0a0a0a] px-4 py-2 text-sm font-medium text-white hover:bg-[#262626] transition-colors"
             >
               <Plus className="h-4 w-4" />
               Submit Your First Expense

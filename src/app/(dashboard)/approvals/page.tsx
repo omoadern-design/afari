@@ -312,7 +312,7 @@ export default function ApprovalsPage() {
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold text-[#0a0a0a]">Approvals</h1>
           {pendingRequests.length > 0 && (
-            <span className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#f0f0f0] px-2 text-xs font-bold text-white">
+            <span className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#0a0a0a] px-2 text-xs font-bold text-white">
               {pendingRequests.length}
             </span>
           )}
@@ -335,7 +335,7 @@ export default function ApprovalsPage() {
             <Clock className="h-3.5 w-3.5" />
             Pending
             {pendingRequests.length > 0 && (
-              <span className="ml-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#f0f0f0] px-1 text-[10px] font-bold text-white">
+              <span className="ml-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0a0a0a] px-1 text-[10px] font-bold text-white">
                 {pendingRequests.length}
               </span>
             )}

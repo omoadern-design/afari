@@ -44,7 +44,7 @@ function ReviewScore({ score, count }: { score: number; count: number }) {
 
   return (
     <div className="flex items-center gap-1.5">
-      <div className="flex h-7 w-10 items-center justify-center rounded-lg bg-[#f0f0f0] text-xs font-bold text-white">
+      <div className="flex h-7 w-10 items-center justify-center rounded-lg bg-[#0a0a0a] text-xs font-bold text-white">
         {score.toFixed(1)}
       </div>
       <div>
@@ -73,7 +73,7 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
       )}
     >
       {hotel.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#f0f0f0] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#0a0a0a] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
           <Sparkles className="h-3 w-3" />
           Recommended
         </div>
