@@ -1,0 +1,248 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Users & Auth ─────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("EMPLOYEE") // EMPLOYEE | MANAGER | FINANCE | ADMIN
+  department   String   @default("General")
+  title        String?
+  avatarUrl    String?
+  employeeId   String?
+  phone        String?
+  costCenter   String?
+  managerId    String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  manager  User?  @relation("Reports", fields: [managerId], references: [id])
+  reports  User[] @relation("Reports")
+
+  bookings        Booking[]
+  expenses        Expense[]
+  approvalActions ApprovalAction[]
+  auditLogs       AuditLog[]
+  notifications   Notification[]
+
+  @@index([email])
+  @@index([managerId])
+}
+
+// ─── Travel Policies ──────────────────────────────────────────────────────────
+
+model Policy {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  isActive    Boolean @default(true)
+  priority    Int     @default(0)
+
+  departments String? // JSON array
+  roles       String? // JSON array
+
+  flightMaxPrice      Float?
+  flightCabinEconomy  Boolean @default(true)
+  flightCabinBusiness Boolean @default(false)
+  flightAdvanceDays   Int?
+  flightMaxDuration   Int?
+
+  hotelMaxNightlyRate  Float?
+  hotelPreferredChains String?
+
+  carMaxDailyRate   Float?
+  carAllowedClasses String?
+
+  mealDailyLimit      Float?
+  entertainmentLimit  Float?
+  requireReceiptAbove Float?
+
+  approvalThreshold Float?
+  autoApproveBelow  Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bookings Booking[]
+  expenses Expense[]
+}
+
+// ─── Travel Bookings ──────────────────────────────────────────────────────────
+
+model Booking {
+  id           String @id @default(cuid())
+  userId       String
+  policyId     String?
+  type         String // FLIGHT | HOTEL | CAR | TRAIN
+  status       String @default("DRAFT")
+  policyResult String @default("IN_POLICY")
+
+  policyViolations String?
+  totalAmount      Float
+  currency         String  @default("USD")
+  purpose          String?
+  justification    String?
+  confirmationRef  String?
+
+  bookedAt  DateTime?
+  startDate DateTime?
+  endDate   DateTime?
+
+  flightData String?
+  hotelData  String?
+  carData    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id])
+  policy          Policy?          @relation(fields: [policyId], references: [id])
+  approvalRequest ApprovalRequest?
+  expenses        Expense[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ─── Expenses ─────────────────────────────────────────────────────────────────
+
+model Expense {
+  id           String @id @default(cuid())
+  userId       String
+  bookingId    String?
+  policyId     String?
+  category     String
+  status       String  @default("DRAFT")
+  policyResult String  @default("IN_POLICY")
+
+  policyViolations String?
+  amount           Float
+  currency         String   @default("USD")
+  description      String
+  merchantName     String?
+  merchantCity     String?
+  transactionDate  DateTime
+  receiptUrl       String?
+
+  aiAnomalyScore  Float?
+  aiAnomalyReason String?
+  notes           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id])
+  booking         Booking?         @relation(fields: [bookingId], references: [id])
+  policy          Policy?          @relation(fields: [policyId], references: [id])
+  approvalRequest ApprovalRequest?
+
+  @@index([userId])
+  @@index([status])
+  @@index([transactionDate])
+  @@index([category])
+}
+
+// ─── Approval Workflow ────────────────────────────────────────────────────────
+
+model ApprovalRequest {
+  id                String @id @default(cuid())
+  requesterId       String
+  subjectType       String // BOOKING | EXPENSE
+  status            String @default("PENDING")
+  currentApproverId String?
+
+  bookingId String?  @unique
+  expenseId String?  @unique
+
+  dueAt       DateTime?
+  escalatedAt DateTime?
+  respondedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  booking Booking? @relation(fields: [bookingId], references: [id])
+  expense Expense? @relation(fields: [expenseId], references: [id])
+  actions ApprovalAction[]
+
+  @@index([status])
+  @@index([currentApproverId])
+  @@index([requesterId])
+}
+
+model ApprovalAction {
+  id                String @id @default(cuid())
+  approvalRequestId String
+  actorId           String
+  action            String // APPROVE | REJECT | REQUEST_INFO | ESCALATE | WITHDRAW
+  comment           String?
+  createdAt         DateTime @default(now())
+
+  approvalRequest ApprovalRequest @relation(fields: [approvalRequestId], references: [id])
+  actor           User            @relation(fields: [actorId], references: [id])
+
+  @@index([approvalRequestId])
+}
+
+// ─── Budgets ──────────────────────────────────────────────────────────────────
+
+model Budget {
+  id          String   @id @default(cuid())
+  name        String
+  department  String
+  period      String
+  periodType  String   // MONTHLY | QUARTERLY | ANNUAL
+  totalAmount Float
+  currency    String   @default("USD")
+  alertAt     Float    @default(0.8)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([department, period])
+  @@index([department])
+}
+
+// ─── Notifications ────────────────────────────────────────────────────────────
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  body      String
+  isRead    Boolean  @default(false)
+  linkUrl   String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, isRead])
+}
+
+// ─── Audit Log ────────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  action     String
+  entityType String
+  entityId   String
+  metadata   String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([userId])
+  @@index([createdAt])
+}
