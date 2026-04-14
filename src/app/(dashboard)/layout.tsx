@@ -34,7 +34,7 @@ export default async function DashboardLayout({
   });
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
+    <div className="flex h-screen overflow-hidden bg-[#f4f6f9]">
       <Sidebar role={session.user.role} pendingApprovals={pendingApprovals} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar
