@@ -10,6 +10,6 @@ export default defineConfig({
   datasource: {
     // Works for both "file:./dev.db" (local SQLite) and
     // "libsql://..." (Turso in production)
-    url: process.env.DATABASE_URL ?? "file:./dev.db",
+    url: process.env.DATABASE_URL ?? "file:./prisma/dev.db",
   },
 });
