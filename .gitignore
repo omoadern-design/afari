@@ -44,5 +44,6 @@ next-env.d.ts
 
 # SQLite dev database
 *.db
+!prisma/seed.db
 *.db-shm
 *.db-wal
