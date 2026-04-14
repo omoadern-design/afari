@@ -26,25 +26,25 @@ function utilizationBadgeStyle(utilization: number): string {
 export function BudgetProgress({ departments }: BudgetProgressProps) {
   if (departments.length === 0) {
     return (
-      <p className="py-6 text-center text-sm text-slate-400">
+      <p className="py-6 text-center text-sm text-[#a3a3a3]">
         No budget data available.
       </p>
     );
   }
 
   return (
-    <div className="flex flex-col divide-y divide-slate-100">
+    <div className="flex flex-col divide-y divide-[#f0f0f0]">
       {departments.map((dept) => {
         const pct = Math.min(dept.utilization, 100);
         return (
           <div key={dept.department} className="py-4 first:pt-0 last:pb-0">
             {/* Header row */}
             <div className="flex items-center justify-between gap-3 mb-2">
-              <span className="text-sm font-medium text-slate-800 truncate">
+              <span className="text-sm font-medium text-[#0a0a0a] truncate">
                 {dept.department}
               </span>
               <div className="flex items-center gap-2 shrink-0">
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-[#737373]">
                   {dept.budget > 0
                     ? `${formatCurrency(dept.spend)} / ${formatCurrency(dept.budget)}`
                     : formatCurrency(dept.spend)}
@@ -64,7 +64,7 @@ export function BudgetProgress({ departments }: BudgetProgressProps) {
 
             {/* Progress bar */}
             {dept.budget > 0 ? (
-              <div className="relative h-2 w-full overflow-hidden rounded-full bg-slate-100">
+              <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#f0f0f0]">
                 <div
                   className={cn("h-full rounded-full transition-all duration-500", barColor(dept.utilization))}
                   style={{ width: `${pct}%` }}
@@ -76,7 +76,7 @@ export function BudgetProgress({ departments }: BudgetProgressProps) {
                 />
               </div>
             ) : (
-              <div className="relative h-2 w-full overflow-hidden rounded-full bg-slate-100">
+              <div className="relative h-2 w-full overflow-hidden rounded-full bg-[#f0f0f0]">
                 <div
                   className="h-full rounded-full bg-slate-300 w-full opacity-30"
                 />

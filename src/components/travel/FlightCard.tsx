@@ -21,11 +21,11 @@ const CABIN_LABELS: Record<string, string> = {
 };
 
 const AIRLINE_COLORS: Record<string, string> = {
-  United: "bg-blue-600",
+  United: "bg-[#f0f0f0]",
   Delta: "bg-red-600",
   American: "bg-slate-700",
   Southwest: "bg-yellow-500",
-  JetBlue: "bg-blue-400",
+  JetBlue: "bg-[#f0f0f0]",
   Alaska: "bg-teal-600",
   Spirit: "bg-yellow-400",
   Frontier: "bg-green-500",
@@ -37,19 +37,19 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
     flight.policyViolations.length > 0 &&
     (flight.policyResult === "REQUIRES_APPROVAL" || flight.policyResult === "OUT_OF_POLICY" || flight.policyResult === "BLOCKED");
 
-  const airlineColor = AIRLINE_COLORS[flight.airline] ?? "bg-slate-500";
+  const airlineColor = AIRLINE_COLORS[flight.airline] ?? "bg-[#f7f7f7]0";
   const initials = flight.airline.substring(0, 2).toUpperCase();
 
   return (
     <Card
       className={cn(
         "relative transition-shadow hover:shadow-md",
-        flight.isRecommended && "ring-2 ring-blue-500",
+        flight.isRecommended && "ring-2 ring-[#0a0a0a]",
         isBlocked && "opacity-75"
       )}
     >
       {flight.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-blue-600 px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#f0f0f0] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
           <Sparkles className="h-3 w-3" />
           Recommended
         </div>
@@ -68,8 +68,8 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
               {initials}
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-900">{flight.airline}</p>
-              <p className="text-xs text-slate-500">{flight.flightNumber}</p>
+              <p className="text-sm font-semibold text-[#0a0a0a]">{flight.airline}</p>
+              <p className="text-xs text-[#737373]">{flight.flightNumber}</p>
             </div>
           </div>
 
@@ -84,15 +84,15 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
         {/* Route & times */}
         <div className="mt-4 flex items-center gap-2">
           <div className="text-center">
-            <p className="text-xl font-bold text-slate-900">{flight.departureTime}</p>
-            <p className="text-sm font-medium text-slate-600">{flight.origin}</p>
+            <p className="text-xl font-bold text-[#0a0a0a]">{flight.departureTime}</p>
+            <p className="text-sm font-medium text-[#737373]">{flight.origin}</p>
           </div>
 
           <div className="flex flex-1 flex-col items-center gap-1">
-            <p className="text-xs text-slate-400">{formatDuration(flight.duration)}</p>
+            <p className="text-xs text-[#a3a3a3]">{formatDuration(flight.duration)}</p>
             <div className="relative flex w-full items-center">
               <div className="h-px flex-1 bg-slate-200" />
-              <Plane className="mx-1 h-3.5 w-3.5 rotate-90 text-slate-400" />
+              <Plane className="mx-1 h-3.5 w-3.5 rotate-90 text-[#a3a3a3]" />
               <div className="h-px flex-1 bg-slate-200" />
             </div>
             <div className="flex items-center gap-1">
@@ -107,8 +107,8 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
           </div>
 
           <div className="text-center">
-            <p className="text-xl font-bold text-slate-900">{flight.arrivalTime}</p>
-            <p className="text-sm font-medium text-slate-600">{flight.destination}</p>
+            <p className="text-xl font-bold text-[#0a0a0a]">{flight.arrivalTime}</p>
+            <p className="text-sm font-medium text-[#737373]">{flight.destination}</p>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
               {flight.seatsLeft} seat{flight.seatsLeft !== 1 ? "s" : ""} left
             </Badge>
           )}
-          <div className="flex items-center gap-1 text-xs text-slate-400">
+          <div className="flex items-center gap-1 text-xs text-[#a3a3a3]">
             <Clock className="h-3 w-3" />
             {formatDuration(flight.duration)}
           </div>
@@ -130,7 +130,7 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
 
         {/* AI reason */}
         {flight.aiReason && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs text-blue-600">
+          <p className="mt-2 flex items-center gap-1.5 text-xs text-[#0a0a0a]">
             <Sparkles className="h-3 w-3" />
             {flight.aiReason}
           </p>
@@ -160,10 +160,10 @@ export function FlightCard({ flight, onBook }: FlightCardProps) {
         {/* Price & book */}
         <div className="mt-4 flex items-center justify-between">
           <div>
-            <p className="text-2xl font-bold text-slate-900">
+            <p className="text-2xl font-bold text-[#0a0a0a]">
               {formatCurrency(flight.price, flight.currency)}
             </p>
-            <p className="text-xs text-slate-500">per person</p>
+            <p className="text-xs text-[#737373]">per person</p>
           </div>
           <Button
             onClick={() => onBook(flight)}

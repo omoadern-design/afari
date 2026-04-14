@@ -185,7 +185,7 @@ export default function NewExpensePage() {
       <div className="mb-6 flex items-center gap-3">
         <Link
           href="/expenses"
-          className="flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+          className="flex items-center gap-1.5 text-sm font-medium text-[#737373] hover:text-[#0a0a0a] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Expenses
@@ -193,8 +193,8 @@ export default function NewExpensePage() {
       </div>
 
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Submit New Expense</h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <h1 className="text-2xl font-bold text-[#0a0a0a]">Submit New Expense</h1>
+        <p className="mt-1 text-sm text-[#737373]">
           Fill in the details below. Expenses above policy thresholds will be routed for approval.
         </p>
       </div>
@@ -208,11 +208,11 @@ export default function NewExpensePage() {
       )}
 
       <form onSubmit={handleSubmit} noValidate>
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div className="divide-y divide-slate-100">
+        <div className="rounded-xl border border-[#e5e5e5] bg-white shadow-sm">
+          <div className="divide-y divide-[#f0f0f0]">
             {/* Category */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Category <span className="text-red-500">*</span>
               </label>
               <select
@@ -220,10 +220,10 @@ export default function NewExpensePage() {
                 onChange={handleChange("category")}
                 disabled={isSubmitting}
                 className={cn(
-                  "flex h-9 w-full rounded-lg border bg-white px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50",
+                  "flex h-9 w-full rounded-lg border bg-white px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0a0a0a] disabled:opacity-50",
                   fieldErrors.category
                     ? "border-red-400 focus-visible:ring-red-400"
-                    : "border-slate-200"
+                    : "border-[#e5e5e5]"
                 )}
               >
                 <option value="">Select a category...</option>
@@ -240,7 +240,7 @@ export default function NewExpensePage() {
 
             {/* Amount + Currency */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Amount <span className="text-red-500">*</span>
               </label>
               <div className="flex gap-2">
@@ -262,7 +262,7 @@ export default function NewExpensePage() {
                   value={form.currency}
                   onChange={handleChange("currency")}
                   disabled={isSubmitting}
-                  className="h-9 rounded-lg border border-slate-200 bg-white px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-50"
+                  className="h-9 rounded-lg border border-[#e5e5e5] bg-white px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0a0a0a] disabled:opacity-50"
                 >
                   {CURRENCIES.map((c) => (
                     <option key={c.value} value={c.value}>
@@ -286,7 +286,7 @@ export default function NewExpensePage() {
 
             {/* Transaction Date */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Transaction Date <span className="text-red-500">*</span>
               </label>
               <Input
@@ -304,7 +304,7 @@ export default function NewExpensePage() {
 
             {/* Description */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Description <span className="text-red-500">*</span>
               </label>
               <Input
@@ -325,7 +325,7 @@ export default function NewExpensePage() {
 
             {/* Merchant Name */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Merchant Name
               </label>
               <Input
@@ -340,7 +340,7 @@ export default function NewExpensePage() {
 
             {/* Merchant City */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Merchant City
               </label>
               <Input
@@ -355,7 +355,7 @@ export default function NewExpensePage() {
 
             {/* Receipt URL */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Receipt URL
               </label>
               <Input
@@ -365,14 +365,14 @@ export default function NewExpensePage() {
                 onChange={handleChange("receiptUrl")}
                 disabled={isSubmitting}
               />
-              <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs text-[#a3a3a3]">
                 Paste a link to your receipt. File upload coming soon.
               </p>
             </div>
 
             {/* Notes */}
             <div className="p-5">
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-[#0a0a0a]">
                 Additional Notes
               </label>
               <Textarea

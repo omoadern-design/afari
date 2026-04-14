@@ -22,7 +22,7 @@ function StarRating({ rating }: { rating: number }) {
           key={i}
           className={cn(
             "h-3.5 w-3.5",
-            i < rating ? "fill-amber-400 text-amber-400" : "fill-slate-100 text-slate-300"
+            i < rating ? "fill-amber-400 text-amber-400" : "fill-slate-100 text-[#d4d4d4]"
           )}
         />
       ))}
@@ -44,12 +44,12 @@ function ReviewScore({ score, count }: { score: number; count: number }) {
 
   return (
     <div className="flex items-center gap-1.5">
-      <div className="flex h-7 w-10 items-center justify-center rounded-lg bg-blue-700 text-xs font-bold text-white">
+      <div className="flex h-7 w-10 items-center justify-center rounded-lg bg-[#f0f0f0] text-xs font-bold text-white">
         {score.toFixed(1)}
       </div>
       <div>
-        <p className="text-xs font-medium text-slate-700">{label}</p>
-        <p className="text-xs text-slate-400">{count.toLocaleString()} reviews</p>
+        <p className="text-xs font-medium text-[#0a0a0a]">{label}</p>
+        <p className="text-xs text-[#a3a3a3]">{count.toLocaleString()} reviews</p>
       </div>
     </div>
   );
@@ -68,12 +68,12 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
     <Card
       className={cn(
         "relative transition-shadow hover:shadow-md",
-        hotel.isRecommended && "ring-2 ring-blue-500",
+        hotel.isRecommended && "ring-2 ring-[#0a0a0a]",
         isBlocked && "opacity-75"
       )}
     >
       {hotel.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-blue-600 px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#f0f0f0] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
           <Sparkles className="h-3 w-3" />
           Recommended
         </div>
@@ -83,7 +83,7 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <h3 className="truncate text-base font-semibold text-slate-900">{hotel.name}</h3>
+            <h3 className="truncate text-base font-semibold text-[#0a0a0a]">{hotel.name}</h3>
             <StarRating rating={hotel.rating} />
           </div>
           <PolicyBadge
@@ -94,13 +94,13 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
         </div>
 
         {/* Address & distance */}
-        <div className="mt-2 flex items-center gap-1 text-xs text-slate-500">
+        <div className="mt-2 flex items-center gap-1 text-xs text-[#737373]">
           <MapPin className="h-3 w-3 shrink-0" />
           <span className="truncate">{hotel.address}</span>
           {hotel.distanceFromCenter && (
             <>
-              <span className="mx-1 text-slate-300">·</span>
-              <span className="shrink-0 text-slate-400">{hotel.distanceFromCenter}</span>
+              <span className="mx-1 text-[#d4d4d4]">·</span>
+              <span className="shrink-0 text-[#a3a3a3]">{hotel.distanceFromCenter}</span>
             </>
           )}
         </div>
@@ -121,13 +121,13 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
             {hotel.amenities.slice(0, 5).map((amenity) => (
               <span
                 key={amenity}
-                className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
+                className="rounded-full bg-[#f0f0f0] px-2 py-0.5 text-xs text-[#737373]"
               >
                 {amenity}
               </span>
             ))}
             {hotel.amenities.length > 5 && (
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-400">
+              <span className="rounded-full bg-[#f0f0f0] px-2 py-0.5 text-xs text-[#a3a3a3]">
                 +{hotel.amenities.length - 5} more
               </span>
             )}
@@ -136,7 +136,7 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
 
         {/* AI reason */}
         {hotel.aiReason && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs text-blue-600">
+          <p className="mt-2 flex items-center gap-1.5 text-xs text-[#0a0a0a]">
             <Sparkles className="h-3 w-3" />
             {hotel.aiReason}
           </p>
@@ -166,10 +166,10 @@ export function HotelCard({ hotel, nights, onBook }: HotelCardProps) {
         {/* Price & book */}
         <div className="mt-4 flex items-end justify-between">
           <div>
-            <p className="text-2xl font-bold text-slate-900">
+            <p className="text-2xl font-bold text-[#0a0a0a]">
               {formatCurrency(totalPrice, hotel.currency)}
             </p>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#737373]">
               {formatCurrency(hotel.nightlyRate, hotel.currency)}/night &middot; {nights}{" "}
               {nights === 1 ? "night" : "nights"}
             </p>

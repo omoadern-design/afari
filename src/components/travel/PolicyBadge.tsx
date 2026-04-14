@@ -57,10 +57,10 @@ export function PolicyBadge({ result, violations = [], size = "md" }: PolicyBadg
               : "border-amber-200"
           )}
         >
-          <p className="mb-1.5 text-xs font-semibold text-slate-700">Policy Violations</p>
+          <p className="mb-1.5 text-xs font-semibold text-[#0a0a0a]">Policy Violations</p>
           <ul className="space-y-1">
             {violations.map((v, i) => (
-              <li key={i} className="flex items-start gap-1.5 text-xs text-slate-600">
+              <li key={i} className="flex items-start gap-1.5 text-xs text-[#737373]">
                 <AlertTriangle className="mt-0.5 h-3 w-3 shrink-0 text-amber-500" />
                 <span>{v}</span>
               </li>

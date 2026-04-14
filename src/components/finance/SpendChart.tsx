@@ -40,16 +40,16 @@ function CustomTooltip({ active, payload, label }: CustomTooltipBaseProps) {
   if (!active || !payload || payload.length === 0) return null;
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm">
-      <p className="mb-2 font-semibold text-slate-900">{label}</p>
+    <div className="rounded-lg border border-[#e5e5e5] bg-white p-3 shadow-lg text-sm">
+      <p className="mb-2 font-semibold text-[#0a0a0a]">{label}</p>
       {payload.map((entry, i) => (
         <div key={i} className="flex items-center gap-2">
           <span
             className="h-2 w-2 rounded-full"
             style={{ backgroundColor: entry.color ?? "#3b82f6" }}
           />
-          <span className="capitalize text-slate-600">{entry.name}:</span>
-          <span className="font-medium text-slate-900">
+          <span className="capitalize text-[#737373]">{entry.name}:</span>
+          <span className="font-medium text-[#0a0a0a]">
             {formatCurrency(entry.value ?? 0)}
           </span>
         </div>
@@ -102,7 +102,7 @@ export function SpendChart({ data }: SpendChartProps) {
           iconSize={8}
           wrapperStyle={{ fontSize: 12, paddingTop: 12 }}
           formatter={(value) => (
-            <span className="capitalize text-slate-600">{value}</span>
+            <span className="capitalize text-[#737373]">{value}</span>
           )}
         />
 

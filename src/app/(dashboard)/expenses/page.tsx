@@ -67,14 +67,14 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">My Expenses</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <h1 className="text-2xl font-bold text-[#0a0a0a]">My Expenses</h1>
+          <p className="mt-1 text-sm text-[#737373]">
             Track, submit, and manage your expense reports
           </p>
         </div>
         <Link
           href="/expenses/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-800 transition-colors"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#f0f0f0] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#f0f0f0] transition-colors"
         >
           <Plus className="h-4 w-4" />
           New Expense
@@ -83,39 +83,39 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#a3a3a3]">
             Total This Month
           </p>
-          <p className="mt-2 text-2xl font-bold text-slate-900">
+          <p className="mt-2 text-2xl font-bold text-[#0a0a0a]">
             {formatCurrency(totalThisMonth)}
           </p>
-          <p className="mt-1 text-xs text-slate-500">Approved &amp; paid expenses</p>
+          <p className="mt-1 text-xs text-[#737373]">Approved &amp; paid expenses</p>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#a3a3a3]">
             Pending Approval
           </p>
           <p className="mt-2 text-2xl font-bold text-amber-600">{pendingCount}</p>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-[#737373]">
             {pendingCount === 1 ? "expense" : "expenses"} awaiting review
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#a3a3a3]">
             Flagged by AI
           </p>
           <p className="mt-2 text-2xl font-bold text-red-600">{flaggedCount}</p>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-[#737373]">
             {flaggedCount === 1 ? "expense" : "expenses"} with anomaly warnings
           </p>
         </div>
       </div>
 
       {/* Filter tabs */}
-      <div className="flex items-center gap-1 border-b border-slate-200">
+      <div className="flex items-center gap-1 border-b border-[#e5e5e5]">
         {FILTER_TABS.map((tab) => {
           const count =
             tab.key === "ALL"
@@ -129,16 +129,16 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
               href={tab.key === "ALL" ? "/expenses" : `/expenses?filter=${tab.key}`}
               className={`flex items-center gap-1.5 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors ${
                 isActive
-                  ? "border-blue-700 text-blue-700"
-                  : "border-transparent text-slate-500 hover:text-slate-900"
+                  ? "border-[#e5e5e5] text-[#0a0a0a]"
+                  : "border-transparent text-[#737373] hover:text-[#0a0a0a]"
               }`}
             >
               {tab.label}
               <span
                 className={`rounded-full px-1.5 py-0.5 text-xs font-semibold ${
                   isActive
-                    ? "bg-blue-100 text-blue-700"
-                    : "bg-slate-100 text-slate-500"
+                    ? "bg-[#f0f0f0] text-[#0a0a0a]"
+                    : "bg-[#f0f0f0] text-[#737373]"
                 }`}
               >
                 {count}
@@ -150,12 +150,12 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
 
       {/* Expense list */}
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-16">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100">
-            <Receipt className="h-7 w-7 text-slate-400" />
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#e5e5e5] bg-[#f7f7f7] py-16">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f0f0f0]">
+            <Receipt className="h-7 w-7 text-[#a3a3a3]" />
           </div>
-          <h3 className="mt-4 text-base font-semibold text-slate-700">No expenses found</h3>
-          <p className="mt-1 text-sm text-slate-400">
+          <h3 className="mt-4 text-base font-semibold text-[#0a0a0a]">No expenses found</h3>
+          <p className="mt-1 text-sm text-[#a3a3a3]">
             {filter === "ALL"
               ? "You haven't submitted any expenses yet."
               : `No expenses with status "${filter.toLowerCase().replace(/_/g, " ")}".`}
@@ -163,7 +163,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
           {filter === "ALL" && (
             <Link
               href="/expenses/new"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 transition-colors"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#f0f0f0] px-4 py-2 text-sm font-medium text-white hover:bg-[#f0f0f0] transition-colors"
             >
               <Plus className="h-4 w-4" />
               Submit Your First Expense

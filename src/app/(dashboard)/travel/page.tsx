@@ -289,8 +289,8 @@ export default function TravelPage() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Book Travel</h1>
-        <p className="text-slate-500 text-sm mt-0.5">
+        <h1 className="text-2xl font-bold text-[#0a0a0a]">Book Travel</h1>
+        <p className="text-[#737373] text-sm mt-0.5">
           Search flights, hotels, and car rentals — policy compliance checked in real-time
         </p>
       </div>
@@ -313,7 +313,7 @@ export default function TravelPage() {
 
         {/* ── Flights ─────────────────────────────────────────────── */}
         <TabsContent value="flights">
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm mb-5">
+          <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm mb-5">
             <form onSubmit={searchFlights} className="grid grid-cols-2 gap-4 lg:grid-cols-3">
               <div>
                 <label className="label">From</label>
@@ -390,7 +390,7 @@ export default function TravelPage() {
 
           {flightResults && !searching && (
             <div>
-              <p className="text-sm text-slate-500 mb-3">
+              <p className="text-sm text-[#737373] mb-3">
                 {flightResults.length} flight{flightResults.length !== 1 ? "s" : ""} found
               </p>
               <div className="grid gap-4 md:grid-cols-2">
@@ -408,7 +408,7 @@ export default function TravelPage() {
 
         {/* ── Hotels ──────────────────────────────────────────────── */}
         <TabsContent value="hotels">
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm mb-5">
+          <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm mb-5">
             <form onSubmit={searchHotels} className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               <div className="col-span-2 lg:col-span-1">
                 <label className="label">City</label>
@@ -464,7 +464,7 @@ export default function TravelPage() {
 
           {hotelResults && !searching && (
             <div>
-              <p className="text-sm text-slate-500 mb-3">
+              <p className="text-sm text-[#737373] mb-3">
                 {hotelResults.length} hotel{hotelResults.length !== 1 ? "s" : ""} found
                 {hotelNights() > 0 && ` · ${hotelNights()} night${hotelNights() !== 1 ? "s" : ""}`}
               </p>
@@ -484,7 +484,7 @@ export default function TravelPage() {
 
         {/* ── Cars ────────────────────────────────────────────────── */}
         <TabsContent value="cars">
-          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm mb-5">
+          <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm mb-5">
             <form onSubmit={searchCars} className="grid grid-cols-2 gap-4 lg:grid-cols-3">
               <div>
                 <label className="label">Pick-up Location</label>
@@ -529,7 +529,7 @@ export default function TravelPage() {
 
           {carResults && !searching && (
             <div>
-              <p className="text-sm text-slate-500 mb-3">
+              <p className="text-sm text-[#737373] mb-3">
                 {carResults.length} vehicle{carResults.length !== 1 ? "s" : ""} found
                 {carDays() > 0 && ` · ${carDays()} day${carDays() !== 1 ? "s" : ""}`}
               </p>
@@ -574,12 +574,12 @@ export default function TravelPage() {
                 <CheckCircle className="h-7 w-7 text-emerald-600" />
               </div>
               <div className="text-center">
-                <p className="font-semibold text-slate-900">
+                <p className="font-semibold text-[#0a0a0a]">
                   {bookingItem?.item.policyResult === "REQUIRES_APPROVAL"
                     ? "Sent for Approval"
                     : "Booking Confirmed!"}
                 </p>
-                <p className="text-sm text-slate-500 mt-1">
+                <p className="text-sm text-[#737373] mt-1">
                   {bookingItem?.item.policyResult === "REQUIRES_APPROVAL"
                     ? "Your manager will be notified to review this booking."
                     : "Your booking is confirmed. Redirecting to dashboard..."}
@@ -589,7 +589,7 @@ export default function TravelPage() {
           ) : (
             <>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label className="block text-sm font-medium text-[#0a0a0a] mb-1.5">
                   Trip Purpose
                 </label>
                 <Input
@@ -601,7 +601,7 @@ export default function TravelPage() {
 
               {needsJustification && (
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                  <label className="block text-sm font-medium text-[#0a0a0a] mb-1.5">
                     Business Justification <span className="text-red-500">*</span>
                   </label>
                   <Textarea
@@ -663,21 +663,21 @@ function SearchSkeleton({ count }: { count: number }) {
       {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}
-          className="rounded-xl border border-slate-200 bg-white p-4 animate-pulse"
+          className="rounded-xl border border-[#e5e5e5] bg-white p-4 animate-pulse"
         >
           <div className="flex justify-between mb-4">
             <div className="flex gap-3">
               <div className="h-10 w-10 rounded-lg bg-slate-200" />
               <div className="space-y-1.5">
                 <div className="h-4 w-24 rounded bg-slate-200" />
-                <div className="h-3 w-16 rounded bg-slate-100" />
+                <div className="h-3 w-16 rounded bg-[#f0f0f0]" />
               </div>
             </div>
             <div className="h-5 w-20 rounded-full bg-slate-200" />
           </div>
           <div className="flex justify-between items-center mb-4">
             <div className="h-6 w-16 rounded bg-slate-200" />
-            <div className="h-3 w-24 rounded bg-slate-100" />
+            <div className="h-3 w-24 rounded bg-[#f0f0f0]" />
             <div className="h-6 w-16 rounded bg-slate-200" />
           </div>
           <div className="flex justify-between items-center">

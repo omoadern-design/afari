@@ -45,14 +45,14 @@ const categoryIconMap: Record<string, React.ReactNode> = {
 
 const categoryColorMap: Record<string, string> = {
   MEALS: "bg-orange-100 text-orange-600",
-  LODGING: "bg-blue-100 text-blue-600",
+  LODGING: "bg-[#f0f0f0] text-[#0a0a0a]",
   AIRFARE: "bg-sky-100 text-sky-600",
-  GROUND_TRANSPORT: "bg-slate-100 text-slate-600",
+  GROUND_TRANSPORT: "bg-[#f0f0f0] text-[#737373]",
   OFFICE_SUPPLIES: "bg-violet-100 text-violet-600",
   ENTERTAINMENT: "bg-pink-100 text-pink-600",
   COMMUNICATION: "bg-cyan-100 text-cyan-600",
   CONFERENCE: "bg-amber-100 text-amber-600",
-  OTHER: "bg-slate-100 text-slate-500",
+  OTHER: "bg-[#f0f0f0] text-[#737373]",
 };
 
 function formatCategoryLabel(category: string): string {
@@ -64,13 +64,13 @@ function formatCategoryLabel(category: string): string {
 
 export function ExpenseCard({ expense }: ExpenseCardProps) {
   const icon = categoryIconMap[expense.category] ?? <MoreHorizontal className="h-5 w-5" />;
-  const iconColor = categoryColorMap[expense.category] ?? "bg-slate-100 text-slate-500";
+  const iconColor = categoryColorMap[expense.category] ?? "bg-[#f0f0f0] text-[#737373]";
   const showAnomaly = typeof expense.aiAnomalyScore === "number" && expense.aiAnomalyScore > 0.3;
   const policyConfig = expense.policyResult ? getPolicyBadgeConfig(expense.policyResult) : null;
 
   return (
     <Link href={`/expenses/${expense.id}`} className="group block">
-      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+      <div className="rounded-xl border border-[#e5e5e5] bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
         <div className="flex items-start gap-3">
           {/* Category icon */}
           <div className={cn("flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg", iconColor)}>
@@ -81,16 +81,16 @@ export function ExpenseCard({ expense }: ExpenseCardProps) {
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-slate-900">
+                <p className="truncate text-sm font-semibold text-[#0a0a0a]">
                   {expense.merchantName || formatCategoryLabel(expense.category)}
                 </p>
-                <p className="mt-0.5 truncate text-xs text-slate-500">{expense.description}</p>
+                <p className="mt-0.5 truncate text-xs text-[#737373]">{expense.description}</p>
               </div>
               <div className="flex-shrink-0 text-right">
-                <p className="text-sm font-bold text-slate-900">
+                <p className="text-sm font-bold text-[#0a0a0a]">
                   {formatCurrency(expense.amount, expense.currency)}
                 </p>
-                <p className="mt-0.5 text-xs text-slate-400">
+                <p className="mt-0.5 text-xs text-[#a3a3a3]">
                   {formatDate(expense.transactionDate)}
                 </p>
               </div>

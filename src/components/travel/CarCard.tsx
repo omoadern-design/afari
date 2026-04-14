@@ -16,7 +16,7 @@ interface CarCardProps {
 
 const CLASS_VARIANTS: Record<string, string> = {
   ECONOMY: "bg-green-100 text-green-700",
-  COMPACT: "bg-blue-100 text-blue-700",
+  COMPACT: "bg-[#f0f0f0] text-[#0a0a0a]",
   MIDSIZE: "bg-indigo-100 text-indigo-700",
   FULLSIZE: "bg-purple-100 text-purple-700",
   SUV: "bg-orange-100 text-orange-700",
@@ -41,19 +41,19 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
       car.policyResult === "OUT_OF_POLICY" ||
       car.policyResult === "BLOCKED");
 
-  const classColor = CLASS_VARIANTS[car.carClass.toUpperCase()] ?? "bg-slate-100 text-slate-700";
+  const classColor = CLASS_VARIANTS[car.carClass.toUpperCase()] ?? "bg-[#f0f0f0] text-[#0a0a0a]";
   const classLabel = CLASS_LABELS[car.carClass.toUpperCase()] ?? car.carClass;
 
   return (
     <Card
       className={cn(
         "relative transition-shadow hover:shadow-md",
-        car.isRecommended && "ring-2 ring-blue-500",
+        car.isRecommended && "ring-2 ring-[#0a0a0a]",
         isBlocked && "opacity-75"
       )}
     >
       {car.isRecommended && (
-        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-blue-600 px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
+        <div className="absolute -top-2.5 left-4 flex items-center gap-1 rounded-full bg-[#f0f0f0] px-2.5 py-0.5 text-xs font-medium text-white shadow-sm">
           <Sparkles className="h-3 w-3" />
           Recommended
         </div>
@@ -63,12 +63,12 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100">
-              <Car className="h-5 w-5 text-slate-500" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#f0f0f0]">
+              <Car className="h-5 w-5 text-[#737373]" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-900">{car.rentalCompany}</p>
-              <p className="text-xs text-slate-500">{car.model}</p>
+              <p className="text-sm font-semibold text-[#0a0a0a]">{car.rentalCompany}</p>
+              <p className="text-xs text-[#737373]">{car.model}</p>
             </div>
           </div>
           <PolicyBadge
@@ -91,7 +91,7 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
         </div>
 
         {/* Pickup location */}
-        <div className="mt-2 flex items-center gap-1 text-xs text-slate-500">
+        <div className="mt-2 flex items-center gap-1 text-xs text-[#737373]">
           <MapPin className="h-3 w-3 shrink-0" />
           <span className="truncate">{car.pickupLocation}</span>
         </div>
@@ -100,7 +100,7 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
         {car.features.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
             {car.features.map((feature) => (
-              <div key={feature} className="flex items-center gap-1 text-xs text-slate-600">
+              <div key={feature} className="flex items-center gap-1 text-xs text-[#737373]">
                 <Check className="h-3 w-3 text-emerald-500" />
                 {feature}
               </div>
@@ -110,7 +110,7 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
 
         {/* AI reason */}
         {car.aiReason && (
-          <p className="mt-2 flex items-center gap-1.5 text-xs text-blue-600">
+          <p className="mt-2 flex items-center gap-1.5 text-xs text-[#0a0a0a]">
             <Sparkles className="h-3 w-3" />
             {car.aiReason}
           </p>
@@ -140,10 +140,10 @@ export function CarCard({ car, days, onBook }: CarCardProps) {
         {/* Pricing & book */}
         <div className="mt-4 flex items-end justify-between">
           <div>
-            <p className="text-2xl font-bold text-slate-900">
+            <p className="text-2xl font-bold text-[#0a0a0a]">
               {formatCurrency(totalCost, car.currency)}
             </p>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#737373]">
               {formatCurrency(car.dailyRate, car.currency)}/day &middot; {days}{" "}
               {days === 1 ? "day" : "days"}
             </p>

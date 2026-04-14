@@ -104,7 +104,7 @@ function AvatarFallback({ name, className }: { name: string; className?: string 
   return (
     <div
       className={cn(
-        "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-700",
+        "flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f0f0f0] text-sm font-semibold text-[#0a0a0a]",
         className
       )}
     >
@@ -163,23 +163,23 @@ function ApprovalCard({ request, onAction, isPending, actionLoading }: ApprovalC
       <CardContent className="p-0">
         <div className="flex items-start gap-4 p-5">
           {/* Avatar */}
-          {user ? <AvatarFallback name={user.name} /> : <div className="h-9 w-9 rounded-full bg-slate-100" />}
+          {user ? <AvatarFallback name={user.name} /> : <div className="h-9 w-9 rounded-full bg-[#f0f0f0]" />}
 
           {/* Main info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-3 flex-wrap">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-semibold text-slate-900 text-sm">
+                  <span className="font-semibold text-[#0a0a0a] text-sm">
                     {user?.name ?? "Unknown"}
                   </span>
-                  <span className="text-xs text-slate-400">&bull;</span>
-                  <span className="text-xs text-slate-500">{user?.department}</span>
-                  <span className="text-xs text-slate-400">&bull;</span>
-                  <span className="text-xs text-slate-500">{timeAgo(request.createdAt)}</span>
+                  <span className="text-xs text-[#a3a3a3]">&bull;</span>
+                  <span className="text-xs text-[#737373]">{user?.department}</span>
+                  <span className="text-xs text-[#a3a3a3]">&bull;</span>
+                  <span className="text-xs text-[#737373]">{timeAgo(request.createdAt)}</span>
                 </div>
                 <div className="mt-0.5 flex items-center gap-2 flex-wrap">
-                  <span className="text-sm text-slate-700 font-medium">{typeLabel}</span>
+                  <span className="text-sm text-[#0a0a0a] font-medium">{typeLabel}</span>
                   {violations.length > 0 && (
                     <Badge variant="destructive" className="text-[10px] py-0">
                       {violations.length} violation{violations.length > 1 ? "s" : ""}
@@ -190,10 +190,10 @@ function ApprovalCard({ request, onAction, isPending, actionLoading }: ApprovalC
 
               {/* Amount */}
               <div className="text-right shrink-0">
-                <div className="text-lg font-bold text-slate-900">
+                <div className="text-lg font-bold text-[#0a0a0a]">
                   {amount != null ? formatCurrency(amount, currency ?? "USD") : "—"}
                 </div>
-                <div className="text-xs text-slate-400">{formatDate(request.createdAt)}</div>
+                <div className="text-xs text-[#a3a3a3]">{formatDate(request.createdAt)}</div>
               </div>
             </div>
 
@@ -202,7 +202,7 @@ function ApprovalCard({ request, onAction, isPending, actionLoading }: ApprovalC
 
             {/* Justification */}
             {justification && (
-              <p className="mt-2 text-sm text-slate-600 italic line-clamp-2">
+              <p className="mt-2 text-sm text-[#737373] italic line-clamp-2">
                 &ldquo;{justification}&rdquo;
               </p>
             )}
@@ -215,9 +215,9 @@ function ApprovalCard({ request, onAction, isPending, actionLoading }: ApprovalC
                 ) : (
                   <XCircle className="h-4 w-4 text-red-500 shrink-0" />
                 )}
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-[#737373]">
                   {lastAction.action === "APPROVE" ? "Approved" : "Rejected"} by{" "}
-                  <span className="font-medium text-slate-700">{lastAction.actor.name}</span>
+                  <span className="font-medium text-[#0a0a0a]">{lastAction.actor.name}</span>
                   {lastAction.comment ? ` — "${lastAction.comment}"` : ""}
                 </span>
               </div>
@@ -227,7 +227,7 @@ function ApprovalCard({ request, onAction, isPending, actionLoading }: ApprovalC
 
         {/* Pending actions footer */}
         {isPending && (
-          <div className="flex items-center justify-end gap-2 border-t border-slate-100 bg-slate-50 px-5 py-3">
+          <div className="flex items-center justify-end gap-2 border-t border-[#f0f0f0] bg-[#f7f7f7] px-5 py-3">
             <Button
               variant="outline"
               size="sm"
@@ -310,16 +310,16 @@ export default function ApprovalsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-slate-900">Approvals</h1>
+          <h1 className="text-2xl font-bold text-[#0a0a0a]">Approvals</h1>
           {pendingRequests.length > 0 && (
-            <span className="flex h-7 min-w-7 items-center justify-center rounded-full bg-blue-700 px-2 text-xs font-bold text-white">
+            <span className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#f0f0f0] px-2 text-xs font-bold text-white">
               {pendingRequests.length}
             </span>
           )}
         </div>
         <button
           onClick={fetchRequests}
-          className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+          className="text-sm text-[#0a0a0a] hover:text-[#0a0a0a] font-medium"
         >
           Refresh
         </button>
@@ -335,7 +335,7 @@ export default function ApprovalsPage() {
             <Clock className="h-3.5 w-3.5" />
             Pending
             {pendingRequests.length > 0 && (
-              <span className="ml-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white">
+              <span className="ml-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#f0f0f0] px-1 text-[10px] font-bold text-white">
                 {pendingRequests.length}
               </span>
             )}
@@ -344,7 +344,7 @@ export default function ApprovalsPage() {
             <CheckCheck className="h-3.5 w-3.5" />
             History
             {historyRequests.length > 0 && (
-              <span className="ml-1 text-slate-400 text-xs">({historyRequests.length})</span>
+              <span className="ml-1 text-[#a3a3a3] text-xs">({historyRequests.length})</span>
             )}
           </TabsTrigger>
         </TabsList>
@@ -354,7 +354,7 @@ export default function ApprovalsPage() {
           {loading ? (
             <div className="flex flex-col gap-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-36 animate-pulse rounded-xl bg-slate-100" />
+                <div key={i} className="h-36 animate-pulse rounded-xl bg-[#f0f0f0]" />
               ))}
             </div>
           ) : pendingRequests.length === 0 ? (
@@ -379,11 +379,11 @@ export default function ApprovalsPage() {
           {loading ? (
             <div className="flex flex-col gap-3">
               {[1, 2].map((i) => (
-                <div key={i} className="h-32 animate-pulse rounded-xl bg-slate-100" />
+                <div key={i} className="h-32 animate-pulse rounded-xl bg-[#f0f0f0]" />
               ))}
             </div>
           ) : historyRequests.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-3 py-20 text-slate-400">
+            <div className="flex flex-col items-center justify-center gap-3 py-20 text-[#a3a3a3]">
               <CheckCheck className="h-10 w-10" />
               <p className="text-sm">No history yet.</p>
             </div>
@@ -408,13 +408,13 @@ export default function ApprovalsPage() {
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-slate-200 py-24">
+    <div className="flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[#e5e5e5] py-24">
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50">
         <CheckCircle className="h-7 w-7 text-emerald-500" />
       </div>
       <div className="text-center">
-        <p className="font-semibold text-slate-900">No pending approvals</p>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="font-semibold text-[#0a0a0a]">No pending approvals</p>
+        <p className="mt-1 text-sm text-[#737373]">
           All requests have been reviewed. Check back later.
         </p>
       </div>

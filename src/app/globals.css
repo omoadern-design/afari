@@ -1,50 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Brand ─────────────────────────────────────────────── */
-  --color-primary: #1dbd80;           /* Navan-inspired signature green */
-  --color-primary-hover: #19a870;
+  /* ── Core palette: black, white, grays ─────────────────── */
+  --color-background: #f7f7f7;
+  --color-foreground: #0a0a0a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0a0a0a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0a0a0a;
+
+  /* ── Primary = pure black ───────────────────────────────── */
+  --color-primary: #0a0a0a;
   --color-primary-foreground: #ffffff;
 
-  /* ── Surface & layout ──────────────────────────────────── */
-  --color-background: #f4f6f9;        /* App shell background */
-  --color-foreground: #0c1d3d;        /* Dark navy — primary text */
-  --color-card: #ffffff;
-  --color-card-foreground: #0c1d3d;
-  --color-popover: #ffffff;
-  --color-popover-foreground: #0c1d3d;
+  /* ── Secondary & muted ──────────────────────────────────── */
+  --color-secondary: #f0f0f0;
+  --color-secondary-foreground: #0a0a0a;
+  --color-muted: #f0f0f0;
+  --color-muted-foreground: #737373;
+  --color-accent: #f0f0f0;
+  --color-accent-foreground: #0a0a0a;
 
-  /* ── Sidebar (dark navy) ───────────────────────────────── */
-  --color-sidebar: #0b1d35;
-  --color-sidebar-fg: #8da0bb;
+  /* ── Sidebar (pure black) ───────────────────────────────── */
+  --color-sidebar: #0a0a0a;
+  --color-sidebar-fg: #a3a3a3;
   --color-sidebar-active-fg: #ffffff;
-  --color-sidebar-accent: #1dbd80;
 
-  /* ── Secondary & muted ─────────────────────────────────── */
-  --color-secondary: #f1f4f9;
-  --color-secondary-foreground: #0c1d3d;
-  --color-muted: #f1f4f9;
-  --color-muted-foreground: #6b7a99;
-  --color-accent: #f1f4f9;
-  --color-accent-foreground: #0c1d3d;
-
-  /* ── State ─────────────────────────────────────────────── */
-  --color-destructive: #ef4444;
+  /* ── Status (used sparingly) ────────────────────────────── */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-destructive: #dc2626;
   --color-destructive-foreground: #ffffff;
 
   /* ── Chrome ─────────────────────────────────────────────── */
-  --color-border: #e5e9f0;
-  --color-input: #e5e9f0;
-  --color-ring: #1dbd80;
+  --color-border: #e5e5e5;
+  --color-input: #e5e5e5;
+  --color-ring: #0a0a0a;
 
   /* ── Charts ─────────────────────────────────────────────── */
-  --color-chart-1: #1dbd80;
-  --color-chart-2: #3b82f6;
-  --color-chart-3: #8b5cf6;
-  --color-chart-4: #f59e0b;
-  --color-chart-5: #ef4444;
+  --color-chart-1: #0a0a0a;
+  --color-chart-2: #404040;
+  --color-chart-3: #737373;
+  --color-chart-4: #d97706;
+  --color-chart-5: #dc2626;
 
-  /* ── Shape ─────────────────────────────────────────────── */
+  /* ── Shape ──────────────────────────────────────────────── */
   --radius: 0.5rem;
 
   /* ── Typography ─────────────────────────────────────────── */
@@ -64,8 +64,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Slim scrollbars */
-::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #c4cdd8; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #8da0bb; }
+::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }

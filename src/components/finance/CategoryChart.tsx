@@ -60,13 +60,13 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload || payload.length === 0) return null;
   const d = payload[0]?.payload;
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-lg text-sm">
-      <p className="font-semibold text-slate-900 mb-1">{labelCase(label as string)}</p>
-      <p className="text-slate-700">
+    <div className="rounded-lg border border-[#e5e5e5] bg-white p-3 shadow-lg text-sm">
+      <p className="font-semibold text-[#0a0a0a] mb-1">{labelCase(label as string)}</p>
+      <p className="text-[#0a0a0a]">
         <span className="font-medium">{formatCurrency(payload[0]?.value ?? 0)}</span>
       </p>
       {d && (
-        <p className="text-slate-500 text-xs mt-0.5">
+        <p className="text-[#737373] text-xs mt-0.5">
           {d.count} transaction{d.count !== 1 ? "s" : ""}
         </p>
       )}
