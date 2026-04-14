@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Afari — Corporate Travel & Expense Management
 
-## Getting Started
+AI-powered corporate travel booking and expense management platform. Book in-policy travel seamlessly, route out-of-policy requests through approval workflows, and give finance full spend visibility.
 
-First, run the development server:
+**Inspired by:** Navan, TravelPerk, SAP Concur, AmexGBT, Ramp.
+
+---
+
+## Demo accounts
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | `admin@acme.com` | `admin123` |
+| Finance | `finance@acme.com` | `finance123` |
+| Manager | `sarah.manager@acme.com` | `password123` |
+| Employee | `alice@acme.com` | `password123` |
+
+---
+
+## Local development
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Copy and fill in environment variables
+cp .env.example .env
+
+# 3. Run database migrations
+npx prisma migrate dev
+
+# 4. Seed with demo data
+npx ts-node --compiler-options '{"module":"CommonJS"}' prisma/seed.ts
+
+# 5. Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to Vercel
 
-## Learn More
+SQLite can't be used on Vercel's serverless runtime. Use **Turso** (hosted libsql) — the adapter is already installed, only the connection URL changes.
 
-To learn more about Next.js, take a look at the following resources:
+### Step 1 — Create a Turso database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Install Turso CLI
+curl -sSfL https://get.tur.so/install.sh | bash
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Log in (creates a free account)
+turso auth login
 
-## Deploy on Vercel
+# Create a database
+turso db create afari-prod
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Get the connection URL and auth token
+turso db show afari-prod --url      # → libsql://<db>.turso.io
+turso db tokens create afari-prod   # → <auth-token>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Your `DATABASE_URL` will be:
+```
+libsql://<db-name>-<org>.turso.io?authToken=<auth-token>
+```
+
+### Step 2 — Deploy to Vercel
+
+```bash
+# Install Vercel CLI (if not already installed)
+npm i -g vercel
+
+# Link and deploy
+vercel
+
+# Follow the prompts:
+#   Set up and deploy → Y
+#   Which scope → your account
+#   Link to existing project → N (new project)
+#   Project name → afari (or anything)
+#   Directory → ./  (current dir)
+```
+
+### Step 3 — Set environment variables
+
+In the Vercel dashboard → Project → Settings → Environment Variables, add:
+
+| Name | Value |
+|---|---|
+| `DATABASE_URL` | `libsql://<db>.turso.io?authToken=<token>` |
+| `NEXTAUTH_SECRET` | output of `openssl rand -base64 32` |
+| `NEXTAUTH_URL` | your Vercel deployment URL e.g. `https://afari.vercel.app` |
+
+Or set them via CLI:
+
+```bash
+vercel env add DATABASE_URL
+vercel env add NEXTAUTH_SECRET
+vercel env add NEXTAUTH_URL
+```
+
+### Step 4 — Run migrations & seed on Turso
+
+```bash
+# Point your local env at the Turso DB temporarily
+export DATABASE_URL="libsql://<db>.turso.io?authToken=<token>"
+
+# Apply the schema
+npx prisma migrate deploy
+
+# Seed demo data
+npx ts-node --compiler-options '{"module":"CommonJS"}' prisma/seed.ts
+```
+
+### Step 5 — Redeploy
+
+```bash
+vercel --prod
+```
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Database | SQLite (dev) / Turso libsql (prod) |
+| ORM | Prisma 7 + `@prisma/adapter-libsql` |
+| Auth | NextAuth.js v5 (credentials + JWT) |
+| Styling | Tailwind CSS v4 |
+| Charts | Recharts |
+| Icons | Lucide React |
+| UI primitives | Radix UI |
