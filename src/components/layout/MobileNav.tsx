@@ -63,7 +63,10 @@ export function MobileNav({ role, pendingApprovals, open, onClose }: MobileNavPr
         <div className="flex h-14 items-center justify-between border-b border-white/[0.07] px-5">
           <div className="flex items-center gap-2.5">
             <AfariLogo size={28} variant="dark" />
-            <p className="text-[14px] font-bold tracking-tight text-white">AFARI</p>
+            <div className="leading-none">
+              <p className="text-[14px] font-bold tracking-tight text-white">AFARI</p>
+              <p className="text-[10px] text-white/30 mt-0.5">Work Smart. Travel Easy.</p>
+            </div>
           </div>
           <button
             onClick={onClose}

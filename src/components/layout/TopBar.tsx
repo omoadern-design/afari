@@ -2,6 +2,7 @@
 
 import { Bell, Search, Menu } from "lucide-react";
 import { initials } from "@/lib/utils";
+import { AfariLogo } from "@/components/icons/AfariLogo";
 
 interface TopBarProps {
   user: { name: string; email: string; role: string; avatarUrl?: string | null };
@@ -18,13 +19,24 @@ export function TopBar({ user, unreadNotifications = 0, title, onMenuOpen }: Top
         {/* Mobile hamburger */}
         <button
           onClick={onMenuOpen}
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-[#737373] transition-colors hover:bg-[#f0f0f0] hover:text-[#0a0a0a] lg:hidden"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[#737373] transition-colors hover:bg-[#f0f0f0] hover:text-[#0a0a0a] lg:hidden"
           aria-label="Open navigation"
         >
           <Menu className="h-4 w-4" />
         </button>
 
-        {title && <h1 className="text-sm font-semibold text-[#0a0a0a]">{title}</h1>}
+        {/* Wordmark — mobile only (<sm); tablets get the search bar instead */}
+        <div className="flex flex-1 items-center justify-center sm:hidden">
+          <div className="flex items-center gap-2">
+            <AfariLogo size={24} variant="light" />
+            <div className="leading-none">
+              <p className="text-[13px] font-bold tracking-tight text-[#0a0a0a]">AFARI</p>
+              <p className="text-[9px] text-[#a3a3a3] mt-0.5">Work Smart. Travel Easy.</p>
+            </div>
+          </div>
+        </div>
+
+        {title && <h1 className="hidden lg:block text-sm font-semibold text-[#0a0a0a]">{title}</h1>}
         <div className="relative hidden max-w-xs flex-1 sm:block">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#a3a3a3]" />
           <input
