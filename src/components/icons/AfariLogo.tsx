@@ -1,13 +1,19 @@
 /**
- * AFARI logo — stylised "A" with mountain peak and wave crossbar,
- * faithfully reproduced from the brand asset (white mark on dark square).
+ * AFARI logo — stylised "A" reproduced from the brand asset.
+ *
+ * Construction:
+ *   – Two thick strokes (left leg + right leg) meeting at a sharp miter peak,
+ *     rounded feet at the bottom. The hollow inner triangle is the background
+ *     showing between the legs.
+ *   – Wave crossbar: smooth quadratic bezier that dips DOWN (valley) then
+ *     rises back up — the signature motion/travel element.
  *
  * Props
- *   size        – uniform px dimension (default 32)
- *   variant     – "dark" = white mark on black bg (default)
- *                 "light" = black mark on white bg
- *                 "mark"  = mark only, no background rect
- *   className   – forwarded to the <svg> element
+ *   size      – uniform px dimension (default 32)
+ *   variant   – "dark"  = white mark on black bg (default)
+ *               "light" = black mark on white bg
+ *               "mark"  = mark only, no background rect
+ *   className – forwarded to the <svg> element
  */
 
 interface AfariLogoProps {
@@ -35,32 +41,34 @@ export function AfariLogo({
       className={className}
       aria-label="AFARI"
     >
-      {/* Background */}
-      {showBg && <rect width="100" height="100" rx="16" fill={bg} />}
+      {/* Background square */}
+      {showBg && <rect width="100" height="100" rx="14" fill={bg} />}
 
       {/*
-        Outer A shape — two angled strokes meeting at the peak.
-        Fill rule evenodd with the inner triangle cutout gives the
-        hollow centre of the letter.
+        Two legs of the A — single open path so the peak gets a clean
+        miter join (sharp point) and the feet get rounded linecaps.
+        Left foot → peak → right foot.
       */}
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M50 10 L87 90 H71 L50 38 L29 90 H13 Z
-           M50 36 L65 76 H35 Z"
-        fill={fg}
+        d="M 12 91 L 50 9 L 88 91"
+        stroke={fg}
+        strokeWidth="14"
+        strokeLinecap="round"
+        strokeLinejoin="miter"
+        strokeMiterlimit="20"
+        fill="none"
       />
 
       {/*
-        Wave / travel-path element — replaces the flat crossbar.
-        Starts at the left inner leg, swoops down into a valley,
-        crests slightly right of centre, then fades out along
-        the right leg. Mimics a mountain-range or journey arc.
+        Wave crossbar — starts on the inner edge of the left leg,
+        sweeps DOWN into a valley (concave-up), then rises toward
+        the inner edge of the right leg.
+        Two quadratic beziers stitched at the valley trough.
       */}
       <path
-        d="M32 68 Q42 52 50 60 Q58 68 68 54"
+        d="M 30 62 Q 43 79 55 66 Q 65 55 73 60"
         stroke={fg}
-        strokeWidth="5.5"
+        strokeWidth="7.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
@@ -72,7 +80,7 @@ export function AfariLogo({
 /* ─── Word-mark (logo + logotype side by side) ─────────────────────── */
 
 interface AfariWordmarkProps {
-  size?: number;          // height of the icon part
+  size?: number;
   variant?: "dark" | "light" | "mark";
   showTagline?: boolean;
   className?: string;
