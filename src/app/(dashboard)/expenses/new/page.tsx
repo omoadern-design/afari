@@ -180,7 +180,7 @@ export default function NewExpensePage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
+    <div className="mx-auto max-w-2xl px-4 py-5 sm:px-6">
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
         <Link
@@ -193,7 +193,7 @@ export default function NewExpensePage() {
       </div>
 
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#0a0a0a]">Submit New Expense</h1>
+        <h1 className="text-xl font-bold text-[#0a0a0a]">Submit New Expense</h1>
         <p className="mt-1 text-sm text-[#737373]">
           Fill in the details below. Expenses above policy thresholds will be routed for approval.
         </p>

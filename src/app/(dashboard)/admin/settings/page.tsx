@@ -95,7 +95,7 @@ export default async function AdminSettingsPage() {
   const categories = [...new Set(INTEGRATIONS.map((i) => i.category))];
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
+    <div className="px-4 py-5 sm:px-6 max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0f0f0]">

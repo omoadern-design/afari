@@ -47,7 +47,7 @@ export default async function DashboardPage() {
   const firstName = (name ?? "").split(" ")[0];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="px-4 py-5 sm:px-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-xl font-bold text-[#0a0a0a]">Good {getGreeting()}, {firstName}</h1>
@@ -58,11 +58,11 @@ export default async function DashboardPage() {
 
       {/* Movement pulse — admin/manager view */}
       {isManagerOrAbove && (
-        <div className="mb-5 rounded-xl border border-[#e5e5e5] bg-[#0a0a0a] px-5 py-4">
+        <div className="mb-5 rounded-xl border border-[#e5e5e5] bg-[#0a0a0a] px-4 py-4 sm:px-5">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-white/40">
             Movement Pulse · Today
           </p>
-          <div className="mt-3 flex flex-wrap gap-8">
+          <div className="mt-3 flex flex-wrap gap-6 sm:gap-8">
             <div>
               <p className="text-2xl font-bold text-white tabular-nums">{totalBookings}</p>
               <p className="text-xs text-white/40">trips this month</p>
@@ -104,12 +104,12 @@ export default async function DashboardPage() {
 
       {/* Finance banner */}
       {["FINANCE","ADMIN"].includes(role) && (
-        <div className="mb-6 flex items-center justify-between rounded-xl border border-[#e5e5e5] bg-white px-5 py-4 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-[#e5e5e5] bg-white px-4 py-4 sm:px-5 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-[#a3a3a3]">
               Organization · {new Date().toLocaleDateString("en-US", { month: "long" })}
             </p>
-            <div className="mt-2 flex gap-8">
+            <div className="mt-2 flex flex-wrap gap-6 sm:gap-8">
               <div>
                 <p className="text-2xl font-bold text-[#0a0a0a]">{formatCurrency(orgTotalSpend)}</p>
                 <p className="text-xs text-[#737373]">total spend</p>
@@ -161,8 +161,8 @@ export default async function DashboardPage() {
               if (b.type === "CAR"    && b.carData)     d = JSON.parse(b.carData);
             } catch {}
             return (
-              <div key={b.id} className="flex items-center justify-between px-5 py-3 hover:bg-[#f9f9f9] transition-colors">
-                <div className="flex items-center gap-3">
+              <div key={b.id} className="flex items-center justify-between px-4 py-3 sm:px-5 hover:bg-[#f9f9f9] transition-colors">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#f0f0f0]">
                     {b.type === "FLIGHT" ? <Plane className="h-3.5 w-3.5 text-[#737373]" />
                      : b.type === "HOTEL" ? <Receipt className="h-3.5 w-3.5 text-[#737373]" />
@@ -194,7 +194,7 @@ export default async function DashboardPage() {
           ) : recentExpenses.map((e) => {
             const cfg = getStatusBadgeConfig(e.status);
             return (
-              <div key={e.id} className="flex items-center justify-between px-5 py-3 hover:bg-[#f9f9f9] transition-colors">
+              <div key={e.id} className="flex items-center justify-between px-4 py-3 sm:px-5 hover:bg-[#f9f9f9] transition-colors">
                 <div>
                   <p className="text-sm font-medium text-[#0a0a0a]">{e.description}</p>
                   <p className="text-xs text-[#a3a3a3]">{e.category.replace(/_/g, " ")} · {formatDate(e.transactionDate)}</p>

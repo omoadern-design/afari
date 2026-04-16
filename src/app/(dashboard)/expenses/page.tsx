@@ -63,11 +63,11 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
       : allExpenses.filter((e) => e.status === filter);
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-5 px-4 py-5 sm:px-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-[#0a0a0a]">My Expenses</h1>
+          <h1 className="text-xl font-bold text-[#0a0a0a]">My Expenses</h1>
           <p className="mt-1 text-sm text-[#737373]">
             Track, submit, and manage your expense reports
           </p>
@@ -115,7 +115,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
       </div>
 
       {/* Filter tabs */}
-      <div className="flex items-center gap-1 border-b border-[#e5e5e5]">
+      <div className="flex items-center gap-1 overflow-x-auto border-b border-[#e5e5e5]">
         {FILTER_TABS.map((tab) => {
           const count =
             tab.key === "ALL"

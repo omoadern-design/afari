@@ -222,7 +222,7 @@ export default async function FinancePage({
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 min-h-screen">
+    <div className="flex flex-col gap-5 px-4 py-5 sm:px-6 min-h-screen">
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>

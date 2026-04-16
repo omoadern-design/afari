@@ -27,10 +27,10 @@ export default async function UsersPage() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
+    <div className="px-4 py-5 sm:px-6 max-w-7xl mx-auto">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#0a0a0a]">Users</h1>
+          <h1 className="text-xl font-bold text-[#0a0a0a]">Users</h1>
           <p className="text-[#737373] text-sm mt-0.5">{users.length} team members</p>
         </div>
         <button className="flex items-center gap-2 rounded-lg bg-[#0a0a0a] px-4 py-2 text-sm font-medium text-white hover:bg-[#262626]">
@@ -40,7 +40,7 @@ export default async function UsersPage() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 mb-6">
         {["EMPLOYEE", "MANAGER", "FINANCE", "ADMIN"].map((role) => {
           const count = users.filter((u) => u.role === role).length;
           return (

@@ -306,11 +306,11 @@ export default function ApprovalsPage() {
   const historyRequests = requests.filter((r) => r.status !== "PENDING");
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-6 px-4 py-5 sm:px-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-[#0a0a0a]">Approvals</h1>
+          <h1 className="text-xl font-bold text-[#0a0a0a]">Approvals</h1>
           {pendingRequests.length > 0 && (
             <span className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#0a0a0a] px-2 text-xs font-bold text-white">
               {pendingRequests.length}

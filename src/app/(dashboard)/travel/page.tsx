@@ -287,9 +287,9 @@ export default function TravelPage() {
   }
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#0a0a0a]">Plan a Trip</h1>
+    <div className="px-4 py-5 sm:px-6 max-w-6xl mx-auto">
+      <div className="mb-5">
+        <h1 className="text-xl font-bold text-[#0a0a0a]">Plan a Trip</h1>
         <p className="text-[#737373] text-sm mt-0.5">
           Search and book flights, hotels, and cars across Africa and beyond
         </p>
@@ -314,7 +314,7 @@ export default function TravelPage() {
         {/* ── Flights ─────────────────────────────────────────────── */}
         <TabsContent value="flights">
           <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm mb-5">
-            <form onSubmit={searchFlights} className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+            <form onSubmit={searchFlights} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 items-end">
               <div>
                 <label className="label">From</label>
                 <Input
@@ -375,8 +375,8 @@ export default function TravelPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="col-span-2 lg:col-span-3 flex justify-end">
-                <Button type="submit" disabled={searching} className="gap-2">
+              <div className="sm:col-span-2 lg:col-span-3 flex justify-end">
+                <Button type="submit" disabled={searching} className="w-full sm:w-auto gap-2">
                   {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
                   {searching ? "Searching..." : "Search Flights"}
                 </Button>
@@ -409,8 +409,8 @@ export default function TravelPage() {
         {/* ── Hotels ──────────────────────────────────────────────── */}
         <TabsContent value="hotels">
           <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm mb-5">
-            <form onSubmit={searchHotels} className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-              <div className="col-span-2 lg:col-span-1">
+            <form onSubmit={searchHotels} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 items-end">
+              <div className="sm:col-span-2 lg:col-span-1">
                 <label className="label">City</label>
                 <Input
                   placeholder="Nairobi, Lagos, Accra..."
@@ -450,8 +450,8 @@ export default function TravelPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="col-span-2 lg:col-span-4 flex justify-end">
-                <Button type="submit" disabled={searching} className="gap-2">
+              <div className="sm:col-span-2 lg:col-span-4 flex justify-end">
+                <Button type="submit" disabled={searching} className="w-full sm:w-auto gap-2">
                   {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
                   {searching ? "Searching..." : "Search Hotels"}
                 </Button>
@@ -485,7 +485,7 @@ export default function TravelPage() {
         {/* ── Cars ────────────────────────────────────────────────── */}
         <TabsContent value="cars">
           <div className="rounded-xl border border-[#e5e5e5] bg-white p-5 shadow-sm mb-5">
-            <form onSubmit={searchCars} className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+            <form onSubmit={searchCars} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 items-end">
               <div>
                 <label className="label">Pick-up Location</label>
                 <Input
@@ -515,8 +515,8 @@ export default function TravelPage() {
                   required
                 />
               </div>
-              <div className="col-span-2 lg:col-span-3 flex justify-end">
-                <Button type="submit" disabled={searching} className="gap-2">
+              <div className="sm:col-span-2 lg:col-span-3 flex justify-end">
+                <Button type="submit" disabled={searching} className="w-full sm:w-auto gap-2">
                   {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
                   {searching ? "Searching..." : "Search Cars"}
                 </Button>

@@ -138,20 +138,21 @@ export default function LoginPage() {
           <span className="text-[10px] font-semibold uppercase tracking-widest text-[#b0b0b0]">try a demo account</span>
           <div className="h-px flex-1 bg-[#ebebeb]" />
         </div>
+        <p className="mb-2.5 text-center text-[11px] text-[#b0b0b0]">Click any card to auto-fill credentials</p>
         <div className="grid grid-cols-2 gap-2">
           {demoAccounts.map((account) => (
             <button
               key={account.email}
               onClick={() => fillDemo(account)}
-              className="flex items-center justify-between rounded-lg border border-[#ebebeb] bg-[#fafafa] px-3 py-2.5 text-left transition-all hover:border-[#7400CC]/30 hover:bg-white hover:shadow-sm"
+              className="flex flex-col gap-1 rounded-lg border border-[#ebebeb] bg-[#fafafa] px-3 py-2.5 text-left transition-all hover:border-[#7400CC]/30 hover:bg-white hover:shadow-sm active:scale-[0.98]"
             >
-              <div>
+              <div className="flex items-center justify-between w-full">
                 <p className="text-xs font-semibold text-[#16161D]">{account.label}</p>
-                <p className="text-[11px] text-[#a3a3a3]">{account.email.split("@")[0]}</p>
+                <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold ${ROLE_COLORS[account.role]}`}>
+                  {account.role.charAt(0) + account.role.slice(1).toLowerCase()}
+                </span>
               </div>
-              <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold ${ROLE_COLORS[account.role]}`}>
-                {account.role.charAt(0) + account.role.slice(1).toLowerCase()}
-              </span>
+              <p className="text-[11px] text-[#a3a3a3] truncate">{account.email}</p>
             </button>
           ))}
         </div>

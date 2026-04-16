@@ -19,10 +19,10 @@ export default async function PoliciesPage() {
   });
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
+    <div className="px-4 py-5 sm:px-6 max-w-6xl mx-auto">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#0a0a0a]">Travel Policies</h1>
+          <h1 className="text-xl font-bold text-[#0a0a0a]">Travel Policies</h1>
           <p className="text-[#737373] text-sm mt-0.5">
             Define rules that govern employee travel and expense behavior
           </p>
