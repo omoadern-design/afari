@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2, Eye, EyeOff, AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
 
@@ -56,7 +55,6 @@ function PasswordStrength({ password }: { password: string }) {
 }
 
 export default function SignUpPage() {
-  const router = useRouter();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -116,11 +114,10 @@ export default function SignUpPage() {
         redirect: false,
       });
 
-      if (result?.error) {
-        router.push("/login");
+      if (!result || result.error) {
+        window.location.assign("/login");
       } else {
-        router.push("/dashboard");
-        router.refresh();
+        window.location.assign("/dashboard");
       }
     } catch {
       setError("Something went wrong. Please try again.");

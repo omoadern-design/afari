@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2, Eye, EyeOff, AlertCircle, ArrowRight } from "lucide-react";
 
@@ -21,7 +20,6 @@ const ROLE_COLORS: Record<string, string> = {
 };
 
 export default function LoginPage() {
-  const router = useRouter();
   const [email, setEmail]               = useState("");
   const [password, setPassword]         = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -32,13 +30,18 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-    const result = await signIn("credentials", { email, password, redirect: false });
-    setIsLoading(false);
-    if (result?.error) {
-      setError("Invalid email or password. Please try again.");
-    } else {
-      router.push("/dashboard");
-      router.refresh();
+    try {
+      const result = await signIn("credentials", { email, password, redirect: false });
+      if (!result || result.error) {
+        setIsLoading(false);
+        setError("Invalid email or password. Please try again.");
+        return;
+      }
+      // Full-page navigation so the server re-reads the new session cookie.
+      window.location.assign("/dashboard");
+    } catch {
+      setIsLoading(false);
+      setError("Something went wrong. Please try again.");
     }
   }
 
