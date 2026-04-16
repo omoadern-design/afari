@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AFARI — calm in the middle of chaos */
+
+@layer base {
+  :root {
+    --color-bg: 250 250 247;
+    --color-ink: 11 31 58;
+    --color-accent: 217 116 73;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  /* Editorial display type */
+  .font-display {
+    font-feature-settings: "ss01";
+  }
+
+  /* Focus rings */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-terracotta-400 ring-offset-2 ring-offset-paper;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-terracotta-200 text-navy-800;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-sand-200 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-sand-300;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-6 lg:px-10;
+  }
+
+  /* Hairline divider that respects warm palette */
+  .hairline {
+    @apply border-sand-200;
+  }
+
+  /* Glass card used in marketing surfaces */
+  .glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.5) 100%
+    );
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+  }
+
+  /* Hero gradient — warm African earth meets calm navy */
+  .hero-gradient {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(217, 116, 73, 0.18), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(46, 79, 132, 0.18), transparent 55%),
+      linear-gradient(180deg, #FAFAF7 0%, #F4F2EA 100%);
+  }
+
+  /* Map dot ping for movement dashboard */
+  .ping {
+    position: relative;
+  }
+  .ping::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 2px solid rgba(217, 116, 73, 0.5);
+    animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  @keyframes ping {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
