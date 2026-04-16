@@ -33,6 +33,13 @@ npm run lint           # next lint
 Copy `.env.example` to `.env.local` and fill in keys when integrating real
 services.
 
+For local Postgres + Redis (Phase 2+):
+
+```bash
+docker compose up -d
+psql postgres://afari:afari@localhost:5432/afari
+```
+
 ---
 
 ## What's in the box
@@ -41,8 +48,19 @@ services.
 | Route | Purpose |
 | --- | --- |
 | `/` | Marketing landing — hero, pillars, product tour, outcomes, coverage, footer |
-| `/login` `/signup` `/forgot-password` `/reset-password` `/accept-invite` | Full split-screen auth flow with SSO scaffolding, MFA copy, locale selector |
-| `/not-found` | Branded 404 |
+| `/login` `/signup` `/forgot-password` `/reset-password` `/accept-invite` `/mfa` | Full split-screen auth flow with SSO scaffolding, six-digit TOTP MFA, locale selector |
+| `/not-found` / `error.tsx` / `loading.tsx` | Branded 404, global error boundary, and loading state |
+
+### HTTP API (`/api/v1/*`)
+| Route | Purpose |
+| --- | --- |
+| `GET /api/v1/health` | Liveness probe |
+| `POST /api/v1/trips/ai-parse` | Natural-language trip parser. Heuristic by default; upgrades to Claude `claude-sonnet-4-6` structured output when `ANTHROPIC_API_KEY` is set. |
+
+The full REST surface is documented in `openapi.yaml` (OpenAPI 3.0) — the
+shape is stable and already implemented by the mock store. Paths not yet
+live in code return 404; each is tagged in the spec so integrations for
+Phase 2+ slot in behind the same URLs.
 
 ### Employee experience
 | Route | Purpose |
@@ -150,6 +168,14 @@ JWT access (15m) + rotating refresh (30d), zxcvbn password strength, 5-attempt
 rate limit + 10-attempt lockout, WCAG 2.1 AA targets, 99.9% uptime SLA.
 
 ---
+
+## CI / tooling
+
+- **GitHub Actions** (`.github/workflows/ci.yml`) runs `type-check`, `lint`,
+  and `build` on every push and PR against `main`.
+- **Docker Compose** (`docker-compose.yml`) starts Postgres 15 and Redis 7
+  for local dev. The Next.js app runs on the host for hot-reload.
+- **OpenAPI 3.0** spec lives in `openapi.yaml`.
 
 ## License
 

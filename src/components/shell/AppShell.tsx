@@ -3,6 +3,7 @@ import { Logo } from "@/components/ui/Logo";
 import { Avatar } from "@/components/ui/Avatar";
 import { Bell, Search } from "@/components/icons";
 import { cn } from "@/lib/cn";
+import { MobileNav } from "./MobileNav";
 
 export type ShellNavItem = {
   href: string;
@@ -97,8 +98,9 @@ export function AppShell({
         {/* Main */}
         <div className="flex-1 min-w-0">
           <header className="sticky top-0 z-20 bg-paper/80 backdrop-blur-md border-b border-sand-200">
-            <div className="flex items-center justify-between px-6 lg:px-10 h-16">
-              <div className="lg:hidden">
+            <div className="flex items-center justify-between px-6 lg:px-10 h-16 gap-3">
+              <div className="lg:hidden flex items-center gap-3">
+                <MobileNav scope={scope} scopeName={scopeName} nav={nav} />
                 <Logo />
               </div>
               <div className="flex-1 max-w-md hidden lg:block">

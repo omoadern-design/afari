@@ -1,0 +1,406 @@
+openapi: 3.0.3
+info:
+  title: AFARI Platform API
+  version: 0.1.0
+  description: |
+    The AFARI REST API. This document is the contract for the Phase 1
+    foundation — the shape is stable and already implemented by the mock
+    store at `src/lib/mock/store.ts`. Implementations for Phase 2+ land
+    behind the same paths.
+  contact:
+    name: AFARI Platform
+    url: https://afari.travel
+
+servers:
+  - url: https://api.afari.travel/v1
+    description: Production
+  - url: http://localhost:3000/api/v1
+    description: Local development
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Auth
+  - name: Trips
+  - name: Approvals
+  - name: Bookings
+  - name: Expenses
+  - name: Policies
+  - name: Analytics
+
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      security: []
+      tags: [Auth]
+      responses:
+        "200":
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ok }
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Email + password sign-in
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, format: password, minLength: 10 }
+      responses:
+        "200":
+          description: Tokens issued
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AuthTokens" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+
+  /auth/signup:
+    post:
+      tags: [Auth]
+      summary: Create an organization + admin user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [organizationName, firstName, lastName, email, password, countryCode]
+              properties:
+                organizationName: { type: string }
+                firstName: { type: string }
+                lastName: { type: string }
+                email: { type: string, format: email }
+                password: { type: string, format: password }
+                countryCode: { type: string, minLength: 2, maxLength: 2 }
+      responses:
+        "201":
+          description: Workspace created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/AuthTokens"
+                  - type: object
+                    properties:
+                      organization: { $ref: "#/components/schemas/Organization" }
+
+  /trips:
+    get:
+      tags: [Trips]
+      summary: List trips (scoped by role)
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: travelerId
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Trip list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Trip" }
+    post:
+      tags: [Trips]
+      summary: Create a trip request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TripInput" }
+      responses:
+        "201":
+          description: Trip created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Trip" }
+
+  /trips/ai-parse:
+    post:
+      tags: [Trips]
+      summary: Parse a natural-language trip description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text:
+                  type: string
+                  example: Lagos to Nairobi next Tuesday for a client meeting
+      responses:
+        "200":
+          description: Structured trip draft
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  parsed:
+                    type: object
+                    properties:
+                      origin: { type: object, nullable: true }
+                      destination: { type: object, nullable: true }
+                      departureDate: { type: string, format: date, nullable: true }
+                      purpose: { type: string, nullable: true }
+                  source: { type: string, enum: [heuristic, claude] }
+
+  /trips/{id}:
+    parameters:
+      - $ref: "#/components/parameters/TripId"
+    get:
+      tags: [Trips]
+      summary: Get a trip
+      responses:
+        "200":
+          description: Trip
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Trip" }
+    patch:
+      tags: [Trips]
+      summary: Update a trip
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TripInput" }
+      responses:
+        "200":
+          description: Updated
+
+  /trips/{id}/submit:
+    parameters:
+      - $ref: "#/components/parameters/TripId"
+    post:
+      tags: [Trips]
+      summary: Submit a trip for approval
+      responses:
+        "200": { description: Submitted }
+
+  /approvals/pending:
+    get:
+      tags: [Approvals]
+      summary: Pending approvals for the current user
+      responses:
+        "200":
+          description: List
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Approval" }
+
+  /approvals/{id}/approve:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string, format: uuid }
+    post:
+      tags: [Approvals]
+      summary: Approve
+      responses:
+        "200": { description: Approved }
+
+  /search/flights:
+    get:
+      tags: [Bookings]
+      summary: Search flights (ranked, policy-aware)
+      parameters:
+        - in: query
+          name: origin
+          required: true
+          schema: { type: string, minLength: 3, maxLength: 3 }
+        - in: query
+          name: destination
+          required: true
+          schema: { type: string, minLength: 3, maxLength: 3 }
+        - in: query
+          name: departureDate
+          required: true
+          schema: { type: string, format: date }
+      responses:
+        "200":
+          description: Three curated options
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/FlightOption" }
+
+  /expenses/upload-receipt:
+    post:
+      tags: [Expenses]
+      summary: Upload a receipt for OCR extraction
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "202":
+          description: Queued for OCR
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId: { type: string, format: uuid }
+
+  /analytics/spend:
+    get:
+      tags: [Analytics]
+      summary: Spend analytics
+      parameters:
+        - in: query
+          name: period
+          schema: { type: string, enum: [week, month, quarter, year] }
+        - in: query
+          name: groupBy
+          schema: { type: string, enum: [category, department, route, traveler] }
+      responses:
+        "200":
+          description: Aggregated spend
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: { type: string, example: unauthorized }
+
+  parameters:
+    TripId:
+      in: path
+      name: id
+      required: true
+      schema: { type: string, format: uuid }
+
+  schemas:
+    AuthTokens:
+      type: object
+      properties:
+        accessToken: { type: string, format: jwt }
+        refreshToken: { type: string, format: jwt }
+        expiresIn: { type: integer, example: 900 }
+
+    Organization:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        slug: { type: string }
+        countryCode: { type: string, minLength: 2, maxLength: 2 }
+        baseCurrency: { type: string, example: USD }
+
+    User:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string, format: email }
+        firstName: { type: string }
+        lastName: { type: string }
+        role:
+          type: string
+          enum: [admin, manager, employee, finance]
+        department: { type: string }
+        jobTitle: { type: string }
+
+    Trip:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        reference: { type: string, example: AFR-2026-00312 }
+        travelerId: { type: string, format: uuid }
+        originCity: { type: string }
+        originAirport: { type: string, minLength: 3, maxLength: 3 }
+        destinationCity: { type: string }
+        destinationAirport: { type: string, minLength: 3, maxLength: 3 }
+        departureDate: { type: string, format: date }
+        returnDate: { type: string, format: date, nullable: true }
+        purpose: { type: string }
+        status:
+          type: string
+          enum:
+            [draft, pending_approval, approved, declined, booking, booked, in_progress, completed, cancelled]
+        estimatedCost: { type: number, format: float }
+        currency: { type: string, minLength: 3, maxLength: 3 }
+        policyCompliant: { type: boolean }
+
+    TripInput:
+      type: object
+      required: [originAirport, destinationAirport, departureDate, purpose]
+      properties:
+        originAirport: { type: string, minLength: 3, maxLength: 3 }
+        destinationAirport: { type: string, minLength: 3, maxLength: 3 }
+        departureDate: { type: string, format: date }
+        returnDate: { type: string, format: date, nullable: true }
+        purpose: { type: string }
+        costCenter: { type: string, nullable: true }
+        projectCode: { type: string, nullable: true }
+
+    Approval:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        tripId: { type: string, format: uuid }
+        approverId: { type: string, format: uuid }
+        status:
+          type: string
+          enum: [pending, approved, declined, suggested_alternative]
+        decidedAt: { type: string, format: date-time, nullable: true }
+
+    FlightOption:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        label:
+          type: string
+          enum: [Best balance, Fastest, Lowest cost]
+        airlineCode: { type: string, minLength: 2, maxLength: 2 }
+        flightNumber: { type: string }
+        departureTime: { type: string, format: date-time }
+        arrivalTime: { type: string, format: date-time }
+        durationMinutes: { type: integer }
+        stops: { type: integer }
+        cost: { type: number, format: float }
+        currency: { type: string }
+        policyCompliant: { type: boolean }
+        why: { type: string }

@@ -1,0 +1,44 @@
+# Local development dependencies for the AFARI platform.
+# Starts Postgres 15 (primary store) and Redis 7 (sessions, BullMQ).
+# The Next.js app runs on the host via `npm run dev` so hot-reload stays fast.
+#
+#   docker compose up -d
+#   psql postgres://afari:afari@localhost:5432/afari
+#   npm run dev
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: afari-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: afari
+      POSTGRES_PASSWORD: afari
+      POSTGRES_DB: afari
+    ports:
+      - "5432:5432"
+    volumes:
+      - afari-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U afari -d afari"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: afari-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - afari-redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  afari-db:
+  afari-redis:
