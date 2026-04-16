@@ -1,19 +1,29 @@
 "use client";
 
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, Menu } from "lucide-react";
 import { initials } from "@/lib/utils";
 
 interface TopBarProps {
   user: { name: string; email: string; role: string; avatarUrl?: string | null };
   unreadNotifications?: number;
   title?: string;
+  onMenuOpen?: () => void;
 }
 
-export function TopBar({ user, unreadNotifications = 0, title }: TopBarProps) {
+export function TopBar({ user, unreadNotifications = 0, title, onMenuOpen }: TopBarProps) {
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between border-b border-[#e5e5e5] bg-white px-6">
+    <header className="flex h-14 shrink-0 items-center justify-between border-b border-[#e5e5e5] bg-white px-4 lg:px-6">
       {/* Left */}
-      <div className="flex flex-1 items-center gap-4">
+      <div className="flex flex-1 items-center gap-3">
+        {/* Mobile hamburger */}
+        <button
+          onClick={onMenuOpen}
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-[#737373] transition-colors hover:bg-[#f0f0f0] hover:text-[#0a0a0a] lg:hidden"
+          aria-label="Open navigation"
+        >
+          <Menu className="h-4 w-4" />
+        </button>
+
         {title && <h1 className="text-sm font-semibold text-[#0a0a0a]">{title}</h1>}
         <div className="relative hidden max-w-xs flex-1 sm:block">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#a3a3a3]" />

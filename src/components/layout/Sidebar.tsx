@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Plane, Receipt, CheckSquare,
-  BarChart3, Shield, Users, LogOut,
+  BarChart3, Shield, Users, LogOut, Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -35,14 +35,16 @@ export function Sidebar({ role, pendingApprovals }: SidebarProps) {
       roles: ["MANAGER", "FINANCE", "ADMIN"],   badge: pendingApprovals,
     },
     { href: "/finance",        label: "Finance",  icon: <BarChart3 className="h-4 w-4" />, roles: ["FINANCE", "ADMIN"] },
-    { href: "/admin/policies", label: "Policies", icon: <Shield className="h-4 w-4" />,    roles: ["ADMIN"] },
-    { href: "/admin/users",    label: "Users",    icon: <Users className="h-4 w-4" />,      roles: ["ADMIN"] },
+    { href: "/admin/policies", label: "Policies",  icon: <Shield className="h-4 w-4" />,    roles: ["ADMIN"] },
+    { href: "/admin/users",    label: "Users",     icon: <Users className="h-4 w-4" />,      roles: ["ADMIN"] },
+    { href: "/admin/settings", label: "Settings",  icon: <Settings className="h-4 w-4" />,   roles: ["ADMIN"] },
+    { href: "/settings",       label: "Settings",  icon: <Settings className="h-4 w-4" />,   roles: ["EMPLOYEE", "MANAGER", "FINANCE"] },
   ];
 
   const visibleItems = navItems.filter((item) => !item.roles || item.roles.includes(role));
 
   return (
-    <aside className="flex h-screen w-[212px] shrink-0 flex-col bg-[#0a0a0a]">
+    <aside className="hidden lg:flex h-screen w-[212px] shrink-0 flex-col bg-[#0a0a0a]">
       {/* Logo */}
       <div className="flex h-14 items-center gap-2.5 border-b border-white/[0.07] px-5">
         <AfariLogo size={30} variant="dark" />
